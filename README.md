@@ -1,3 +1,26 @@
+# Game Guides NextJS
+
+## Images
+* Config in fetch
+```
+```
+* Config image domine in next.config.ts
+```
+images: {
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'dragonra.bsite.net',
+      pathname: '/api/archivo/**',
+    },
+  ],
+},
+```
+
+<hr>
+<hr>
+<hr>
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
