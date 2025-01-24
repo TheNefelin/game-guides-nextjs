@@ -1,8 +1,7 @@
 import { ApiResult } from "./models";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
-const API_GET_GAMES = `${API_URL}/public/games`;
-const API_GET_IMG = `${API_URL}${process.env.NEXT_PUBLIC_IMG_PATH}`;
+const API_GET_GAMES = process.env.API_GET_GAMES!;
+const API_GET_IMG = process.env.API_GET_IMG!;
 
 export const fetchApiResult = async (): Promise<ApiResult> => {
   try {
