@@ -6,7 +6,6 @@ export default function BtnTheme() {
   
   const handleClick = () => {
     setTheme(theme === "winter" ? "night" : "winter")
-    console.log(theme)
   }
 
   useEffect(() => {

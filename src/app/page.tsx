@@ -1,6 +1,5 @@
 import Image from "next/image";
-import BtnUp from "@/components/BtnUp";
-import BtnUpGuia from "@/components/BtnUpGuia";
+import BtnUpGuide from "@/components/BtnUpGuide";
 
 export default function Home() {
   return (
@@ -12,8 +11,9 @@ export default function Home() {
         className="m-auto"
         src="/star_wars.gif"
         alt="Star Wars"
-        height={700}
-        width={700}
+        width={1032}
+        height={613}
+        priority
         unoptimized
       >
       </Image>
@@ -22,14 +22,14 @@ export default function Home() {
         className="m-auto"
         src="/sin_guia.gif"
         alt="Vintage Game"
-        height={700}
-        width={700}
+        width={1032}
+        height={510}
+        priority
         unoptimized
       >
       </Image>
 
-      <BtnUpGuia id_guia_acordion="0"/>
-      <BtnUp/>
+      <BtnUpGuide id_guia_acordion="0"/>
     </main>
   );
 }

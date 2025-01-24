@@ -5,7 +5,7 @@ interface Props {
   id_guia_acordion: string
 }
 
-export default function BtnUpGuia(props: Props) {
+export default function BtnUpGuide(props: Props) {
   return (
     <Link
     href={`#${props.id_guia_acordion}`}

@@ -1,6 +1,23 @@
 # Game Guides NextJS
 
-## Images
+## Page Structure
+```mermaid
+graph TD;
+    App --> NavBar
+    App --> SideBar
+    App --> Pages
+
+    SideBar --> Navigation
+    Navigation --> Pages
+
+    Pages --> Background    
+    Pages --> Guide
+    Pages --> Character
+    Pages --> Source    
+    ;
+```
+
+# Images
 * Config in fetch
 ```
 ```
@@ -11,7 +28,7 @@ images: {
     {
       protocol: 'https',
       hostname: 'dragonra.bsite.net',
-      pathname: '/api/archivo/**',
+      pathname: '/api/img/**',
     },
   ],
 },

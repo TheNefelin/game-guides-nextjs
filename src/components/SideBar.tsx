@@ -1,34 +1,33 @@
 import Image from "next/image"
-import Fetching from "@/services/fetching"
-import { Game } from "@/services/models"
 import Link from "next/link"
+import Singleton from "@/services/singleton"
+import { Game } from "@/services/models"
 
 export default async function SideBar() {
-  const fetching = new Fetching()
-  const data = await fetching.get_all_games_async()
-
-  if (data.length === 0 ) return <></>
+  const apiResult = await Singleton.getApiResultAsync();
 
   return (
-    <ul id="id_sidebar" className="bg-base-100 h-full menu menu-xs pr-0">
-      {data.map((e:Game) => (
-        <li key={e.id} className='mb-2'>
-          <Link href={`/game/${e.id}`}>
-            <div key={e.id} className="avatar grid place-items-center">
+    <ul id="id_sidebar" className="bg-base-100 h-full w-full max-w-28 menu menu-xs pr-0">
+      {apiResult.data.map((game: Game) => (
+        game.isActive && 
+        <li key={game.id} className="mb-2">
+          <Link href={`/game/${game.id}`}>
+            <div className="avatar grid place-items-center">
               <div className="rounded-xl">
                 <Image
-                  className='shadow-md'
-                  src={`${fetching.imgurl}${e.img}`}
+                  className="shadow-md"
+                  rel="preload"
+                  src={Singleton.getImgPath(game.imgUrl)}
                   width={65}
                   height={65}
-                  alt={e.nombre}
-                ></Image>
+                  alt={game.name}
+                />
               </div>
-              <p>{e.nombre}</p>
+              <p>{game.name}</p>
             </div>
           </Link>
         </li>
       ))}
     </ul>
-  )
+  );
 }
