@@ -7,7 +7,7 @@ export default async function SideBar() {
   const apiResult = await Singleton.getApiResultAsync();
 
   return (
-    <ul id="id_sidebar" className="bg-base-100 h-full w-full max-w-28 menu menu-xs pr-0">
+    <ul id="id_sidebar" className="bg-base-100 h-full min-w-24 w-28 menu menu-xs pr-0">
       {apiResult.data.map((game: Game) => (
         game.isActive && 
         <li key={game.id} className="mb-2">

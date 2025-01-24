@@ -5,12 +5,11 @@ export default function BtnLogo() {
   return (
     <Link href={"/"} className="btn bg-transparent border-none px-2 normal-case text-xl ml-20">
       <Image
-        rel="preload"
         src="/logo.png"
         alt='Logo'
         width={60}
         height={40}
-        priority
+        priority={true}
       ></Image>
       Guias
     </Link>

@@ -20,7 +20,7 @@ export default async function GamePage({ params }: GamePageProps) {
     game.backgrounds.map((background: Background) => (
       <Image
         key={background.id}
-        className='m-auto shadow-xl mb-4'
+        className='m-auto shadow-xl mb-4 p-2'
         src={Singleton.getImgPath(background.imgUrl)}
         alt='background'
         width={1280}

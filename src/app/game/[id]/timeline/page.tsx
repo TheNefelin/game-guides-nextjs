@@ -1,6 +1,7 @@
 import PageNotFound from "@/components/PageNotFound";
-import { Game } from "@/services/models";
 import Singleton from "@/services/singleton";
+import TimelineGuide from "@/components/TimelineGuide";
+import { Game } from "@/services/models";
 
 interface CharacterPageProps {
   params: Promise<{ id: string }>
@@ -16,6 +17,6 @@ export default async function TimelinePage({ params }: CharacterPageProps) {
   if (!game) return <PageNotFound/>
   
   return(
-    <div>TIMELINE {gameId}</div>
+    <TimelineGuide guides={ game.guides }/>
   )
 }

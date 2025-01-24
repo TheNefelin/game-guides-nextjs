@@ -7,11 +7,11 @@ html {
 }
 
 /* Chrome, Safari */
-body::-webkit-scrollbar{
+html::-webkit-scrollbar{
   display: none !important;
 }
 
 /* Para Firefox */
-body {
+html {
   scrollbar-width: none !important; 
 }

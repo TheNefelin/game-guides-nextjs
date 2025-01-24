@@ -14,23 +14,44 @@ export interface Game {
   characters: Character[]
   sources: Source[]
   backgrounds: Background[]
-  guides: any
+  guides: Guide[]
 }
 
-export interface Character{
+export interface Character {
   id: number
   name: string
   description: string
   imgUrl: string
 }
 
-export interface Source{
+export interface Source {
   id: number
   name: string
-  imgUrl: string
+  url: string
 }
 
 export interface Background {
   id: number
   imgUrl: string
+}
+
+export interface Guide {
+  id: number
+  name: string
+  sort: number
+  adventures: Adventure[]
+}
+
+export interface Adventure {
+  id: number
+  description: string
+  isImportant: boolean
+  sort: number
+  adventuresImg: AdventureImg[]
+}
+
+export interface AdventureImg {
+  id: number
+  imgUrl: string
+  sort: number
 }

@@ -20,11 +20,10 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   return(
     <article key={game.id} className='w-full'>
       <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
-      <div className='my-2 flex gap-2'>
+      <div className='my-2 flex flex-wrap gap-2'>
         <Link className='btn btn-warning' href={`/game/${id}`}>Juego</Link>
         {
-          // data[0].cant_guias > 0 &&
-          false &&
+          game.guides.length > 0 &&
           <Link className='btn btn-warning' href={`/game/${id}/timeline`}>Guia Time Line</Link>
         }
         {

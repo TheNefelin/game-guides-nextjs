@@ -10,7 +10,7 @@ export default function BtnPokemon() {
         alt="Pokemon Button"
         width={80}
         height={80}
-        priority
+        priority={true}
       ></Image>
     </button>
   )
