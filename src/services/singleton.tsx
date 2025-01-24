@@ -47,21 +47,21 @@ export default class Singleton {
 
   // Método para obtener la instancia única del Singleton
   private static getInstance(): Singleton {
-    if (!Singleton.instance) {
-      Singleton.instance = new Singleton();
+    if (!this.instance) {
+      this.instance = new Singleton();
     }
     return this.instance;
   }
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
-    Singleton.getInstance()
+    this.getInstance()
     return await this.apiResult;
   }
 
   // Método para obtener la URL completa de la imagen
   public static getImgPath(imgUrl: string): string {
-    Singleton.getInstance()
+    this.getInstance()
     return `${this.apiGetImg}${imgUrl}`;
   }
 }

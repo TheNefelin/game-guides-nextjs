@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'dragonra.bsite.net',
-        pathname: '/api/img/**',
+        pathname: '/api/**',
       },
     ],
   },
