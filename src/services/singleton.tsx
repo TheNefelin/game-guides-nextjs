@@ -14,7 +14,7 @@ export default class Singleton {
   private static apiGetGames: string = `${this.apiUrl}/public/games`;
   private static apiGetImg: string = `${this.apiUrl}/img/games-guide?fileName=`;
   private static requestOptions: RequestOptions = {
-    cache: 'no-store',
+    // cache: 'no-store',
     method: "GET",
     headers: {
       "Accept": "application/json"
