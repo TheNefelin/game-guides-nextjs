@@ -10,10 +10,9 @@ interface RequestOptions extends RequestInit {
 export default class Singleton {
   private static instance: Singleton;
   private static apiResult: Promise<ApiResult>;
-  private static apiUrl: string = "https://dragonra.bsite.net/api";
-  private static apiGetGames: string = `${this.apiUrl}/public/games`;
-  private static apiGetImg: string = `${this.apiUrl}/img/games-guide?fileName=`;
-  private static requestOptions: RequestOptions = {
+  private static readonly apiGetGames: string = process.env.API_GET_GAMES!;
+  private static readonly apiGetImg: string = process.env.API_GET_IMG!;
+  private static readonly requestOptions: RequestOptions = {
     // cache: 'no-store',
     method: "GET",
     headers: {
@@ -25,6 +24,14 @@ export default class Singleton {
     console.log('Instancia Singleton creada');
     // Asignamos directamente la promesa
     Singleton.apiResult = Singleton.apiFetch();
+  }
+
+  // Método para obtener la instancia única del Singleton
+  private static getInstance(): Singleton {
+    if (!this.instance) {
+      this.instance = new Singleton();
+    }
+    return this.instance;
   }
 
   // Fetching de la API
@@ -44,14 +51,6 @@ export default class Singleton {
       return apiResult;
     }
   };
-
-  // Método para obtener la instancia única del Singleton
-  private static getInstance(): Singleton {
-    if (!this.instance) {
-      this.instance = new Singleton();
-    }
-    return this.instance;
-  }
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {

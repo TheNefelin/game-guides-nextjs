@@ -5,8 +5,7 @@ import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
 import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
-// import Singleton from "@/services/singleton";
-import { fetchApiResult } from "@/services/fetching";
+import Singleton from "@/services/singleton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Readonly<{children: React.ReactNode;}>) {
-  // const apiResult = await Singleton.getApiResultAsync();
-  const apiResult = await fetchApiResult()
+  const apiResult = await Singleton.getApiResultAsync();
 
   return (
     <html lang="es">
