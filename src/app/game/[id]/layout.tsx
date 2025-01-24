@@ -15,7 +15,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   // const apiResult = await Singleton.getApiResultAsync()  
-   const apiResult = await fetchApiResult()
+  const apiResult = await fetchApiResult()
   const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
   if (!game) return <PageNotFound/>
 
