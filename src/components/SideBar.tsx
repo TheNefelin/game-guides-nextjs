@@ -3,12 +3,14 @@ import Link from "next/link"
 import Singleton from "@/services/singleton"
 import { Game } from "@/services/models"
 
-export default async function SideBar() {
-  const apiResult = await Singleton.getApiResultAsync();
+interface SideBarProps {
+  games: Game[]
+}
 
+export default async function SideBar({ games }: SideBarProps) {
   return (
     <ul id="id_sidebar" className="bg-base-100 h-full min-w-24 w-28 menu menu-xs pr-0">
-      {apiResult.data.map((game: Game) => (
+      {games.map((game: Game) => (
         game.isActive && 
         <li key={game.id} className="mb-2">
           <Link href={`/game/${game.id}`}>

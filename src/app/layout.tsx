@@ -6,6 +6,8 @@ import SideBar from "@/components/SideBar";
 import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
 import Singleton from "@/services/singleton";
+import React from "react";
+import { ApiResult } from "@/services/models";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,8 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Readonly<{children: React.ReactNode;}>) {
-  const apiResult = await Singleton.getApiResultAsync();
+  const apiResult: ApiResult = await Singleton.getApiResultAsync();
+  console.log(apiResult.isSucces)
 
   return (
     <html lang="es">
@@ -34,7 +37,7 @@ export default async function RootLayout({ children }: Readonly<{children: React
         <section className="flex gap-2 mt-4">
           {apiResult.isSucces? (
             <>
-              <SideBar/>
+              <SideBar games={apiResult.data}/>
               { children }
             </>
           ) : (

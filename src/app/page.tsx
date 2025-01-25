@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className='card-body bg-base-200'>
       <h1 className="card-title uppercase">Bienbenidos !!! &#129409;</h1>
