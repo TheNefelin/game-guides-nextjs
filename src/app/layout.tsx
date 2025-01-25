@@ -5,7 +5,7 @@ import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
 import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
-// import Singleton from "@/services/singleton";
+import Singleton from "@/services/singleton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Readonly<{children: React.ReactNode;}>) {
-  // const apiResult = await Singleton.getApiResultAsync();
+  const apiResult = await Singleton.getApiResultAsync();
 
   return (
     <html lang="es">
@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: Readonly<{children: React
         <SideBar/>
         { children }
 
-        {/* <section className="flex gap-2 mt-4">
+        <section className="flex gap-2 mt-4">
           {apiResult.isSucces? (
             <>
               <SideBar/>
@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: Readonly<{children: React
               <span>Error! { apiResult.statusCode } : { apiResult.message }</span>
             </div>
           )}
-        </section> */}
+        </section>
 
         <BtnUp/>
       </body>
