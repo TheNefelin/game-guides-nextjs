@@ -9,7 +9,7 @@ interface RequestOptions extends RequestInit {
 
 export default class Singleton {
   private static instance: Singleton;
-  private static apiResult: Promise<ApiResult>;
+  private static apiResult: ApiResult;
   private static readonly apiGetGames: string = process.env.API_GET_GAMES!;
   private static readonly apiGetImg: string = process.env.API_GET_IMG!;
   private static readonly requestOptions: RequestOptions = {
@@ -23,7 +23,7 @@ export default class Singleton {
   private constructor() {
     console.log('Instancia Singleton creada');
     // Asignamos directamente la promesa
-    Singleton.apiResult = Singleton.apiFetch();
+    Singleton.apiFetch();
   }
 
   // Método para obtener la instancia única del Singleton
@@ -35,30 +35,24 @@ export default class Singleton {
   }
 
   // Fetching de la API
-  private static apiFetch = async (): Promise<ApiResult> => {
+  private static apiFetch = async () => {
     try {
       const res = await fetch(this.apiGetGames, this.requestOptions);
-      const data: ApiResult = await res.json();
-      return data;
+      this.apiResult = await res.json();
     } catch (err: unknown) {
       // Devolver error estándar si ocurre algo
-      const apiResult: ApiResult = {
+      this.apiResult  = {
         isSucces: false,
         statusCode: 500,
         message: err instanceof Error ? err.message : 'Error desconocido',
         data: []
       };
-      return apiResult;
     }
   };
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
-    // this.getInstance()
-    // return await this.apiResult;
-    if (!this.apiResult) {
-      this.apiResult = this.apiFetch();
-    }
+    this.getInstance()
     return await this.apiResult;
   }
 
