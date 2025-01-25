@@ -24,7 +24,9 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
         <div>
           {gameId}
           Hi: {apiResult.data.map((e: Game) => (
-            <div key={e.id}>{e.name}</div>
+            <div key={e.id}>{e.name}
+              {children}
+            </div>
           ))}
         </div>
       )}
