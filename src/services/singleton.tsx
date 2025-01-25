@@ -54,7 +54,11 @@ export default class Singleton {
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
-    this.getInstance()
+    // this.getInstance()
+    // return await this.apiResult;
+    if (!this.apiResult) {
+      this.apiResult = this.apiFetch();
+    }
     return await this.apiResult;
   }
 
