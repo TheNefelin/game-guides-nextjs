@@ -18,8 +18,12 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   // if (!game) return <PageNotFound/>
 
   return(
-    <article key={gameId} className='w-full'>
-    {/* //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
+    <>
+      <div>Layout-GameID: {gameId}</div>
+        {children}
+    </>
+    // <article key={game.id} className='w-full'>
+    //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
     //   <div className='my-2 flex flex-wrap gap-2'>
     //     <Link className='btn btn-warning' href={`/game/${id}`}>Juego</Link>
     //     {
@@ -35,8 +39,8 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
     //       <Link className='btn btn-warning' href={`/game/${id}/source`}>Fuentes</Link>
     //     }
     //   </div>
-    //   <p className='indent-8 p-4 bg-base-200 shadow-md mb-4'>{game.description}</p> */}
-      { children }
-    </article>
+    //   <p className='indent-8 p-4 bg-base-200 shadow-md mb-4'>{game.description}</p>
+    //   { children }
+    // </article>
   )
 }

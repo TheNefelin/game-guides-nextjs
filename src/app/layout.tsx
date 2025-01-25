@@ -31,9 +31,6 @@ export default async function RootLayout({ children }: Readonly<{children: React
         <BtnPokemon/>
         <NavBar/>
 
-        <SideBar/>
-        { children }
-
         <section className="flex gap-2 mt-4">
           {apiResult.isSucces? (
             <>
