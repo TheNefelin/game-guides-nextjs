@@ -7,7 +7,8 @@ import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
 import Singleton from "@/services/singleton";
 import React from "react";
-import { ApiResult } from "@/services/models";
+import { ApiResult, Game } from "@/services/models";
+import DataContainer from "@/services/context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,17 @@ export default async function RootLayout({ children }: Readonly<{children: React
       <body id="id_body" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <BtnPokemon/>
         <NavBar/>
+
+            <DataContainer>
+              {(apiResult) => (
+                <div>
+                  Hi: {apiResult.data.map((e: Game) => (
+                    <div key={e.id}>{e.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </DataContainer>
 
         <section className="flex gap-2 mt-4">
           {apiResult.isSucces? (

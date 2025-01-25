@@ -8,16 +8,16 @@ export default async function Home() {
       <h1 className="card-title uppercase">Bienbenidos !!! &#129409;</h1>
       <p className="indent-4">Esta página nació porque cada vez que juego Chrono Cross y dejo el juego pendiente por mucho tiempo, ya no recuerdo en qué misión voy.</p>
 
-    <DataContainer>
-      {(apiResult) => (
-        <div>
-          Hi: {apiResult.data.map((e: Game) => (
-            <div key={e.id}>{e.name}
-            </div>
-          ))}
-        </div>
-      )}
-    </DataContainer>
+      <DataContainer>
+        {(apiResult) => (
+          <div>
+            Hi: {apiResult.data.map((e: Game) => (
+              <div key={e.id}>{e.name}
+              </div>
+            ))}
+          </div>
+        )}
+      </DataContainer>
     
       <Image
         className="m-auto h-auto"
