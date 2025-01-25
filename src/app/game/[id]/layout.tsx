@@ -1,7 +1,8 @@
 import PageNotFound from "@/components/PageNotFound"
-import Singleton from "@/services/singleton"
+// import Singleton from "@/services/singleton"
 // import Link from "next/link"
 import { Game } from "@/services/models"
+import DataContainer from "@/services/context"
 
 interface GameLayoutProps {
   params: Promise<{ id: string }>
@@ -13,15 +14,21 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const apiResult = await Singleton.getApiResultAsync()  
-  const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
-  if (!game) return <PageNotFound/>
+  // const apiResult = await Singleton.getApiResultAsync()  
+  // const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
+  // if (!game) return <PageNotFound/>
 
   return(
-    <>
-      <div>Layout-GameID: {gameId}</div>
-        {children}
-    </>
+    <DataContainer>
+      {(apiResult) => (
+        <div>
+          {gameId}
+          Hi: {apiResult.data.map((e: Game) => (
+            <div key={e.id}>{e.name}</div>
+          ))}
+        </div>
+      )}
+    </DataContainer>
     // <article key={game.id} className='w-full'>
     //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
     //   <div className='my-2 flex flex-wrap gap-2'>
