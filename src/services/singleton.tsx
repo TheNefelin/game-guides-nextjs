@@ -9,7 +9,7 @@ interface RequestOptions extends RequestInit {
 
 export default class Singleton {
   private static instance: Singleton;
-  private static apiResult: ApiResult;
+  private static apiResult: Promise<ApiResult>;
   private static readonly apiGetGames: string = process.env.API_GET_GAMES!;
   private static readonly apiGetImg: string = process.env.API_GET_IMG!;
   private static readonly requestOptions: RequestOptions = {
@@ -23,7 +23,7 @@ export default class Singleton {
   private constructor() {
     console.log('Instancia Singleton creada');
     // Asignamos directamente la promesa
-    Singleton.apiFetch();
+    Singleton.apiResult = Singleton.apiFetch();
   }
 
   // Método para obtener la instancia única del Singleton
@@ -35,18 +35,20 @@ export default class Singleton {
   }
 
   // Fetching de la API
-  private static apiFetch = async () => {
+  private static apiFetch = async (): Promise<ApiResult> => {
     try {
       const res = await fetch(this.apiGetGames, this.requestOptions);
-      this.apiResult = await res.json();
+      const data: ApiResult = await res.json();
+      return data;
     } catch (err: unknown) {
       // Devolver error estándar si ocurre algo
-      this.apiResult  = {
+      const apiResult: ApiResult = {
         isSucces: false,
         statusCode: 500,
         message: err instanceof Error ? err.message : 'Error desconocido',
         data: []
       };
+      return apiResult;
     }
   };
 
