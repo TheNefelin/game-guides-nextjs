@@ -28,16 +28,16 @@ export default class Singleton {
 
   // Método para obtener la instancia única del Singleton
   private static getInstance(): Singleton {
-    if (!Singleton.instance) {
-      Singleton.instance = new Singleton();
+    if (!this.instance) {
+      this.instance = new Singleton();
     }
-    return Singleton.instance;
+    return this.instance;
   }
 
   // Fetching de la API
   private static apiFetch = async (): Promise<ApiResult> => {
     try {
-      const res = await fetch(Singleton.apiGetGames, Singleton.requestOptions);
+      const res = await fetch(this.apiGetGames, this.requestOptions);
       const data: ApiResult = await res.json();
       return data;
     } catch (err: unknown) {
@@ -54,13 +54,12 @@ export default class Singleton {
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
-    Singleton.getInstance()
-    return await Singleton.apiResult;
+    this.getInstance()
+    return await this.apiResult;
   }
 
   // Método para obtener la URL completa de la imagen
   public static getImgPath(imgUrl: string): string {
-    Singleton.getInstance()
-    return `${Singleton.apiGetImg}${imgUrl}`;
+    return `${this.apiGetImg}${imgUrl}`;
   }
 }
