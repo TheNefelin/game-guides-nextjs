@@ -1,7 +1,6 @@
 import PageNotFound from "@/components/PageNotFound"
-import Link from "next/link"
-import { Game } from "@/services/models"
-import { getApiResultAsync } from "@/services/fetching"
+import DataContainer from "@/services/context"
+// import Link from "next/link"
 
 interface GameLayoutProps {
   params: Promise<{ id: string }>
@@ -14,31 +13,38 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   // const apiResult = await Singleton.getApiResultAsync()  
-  const apiResult = await getApiResultAsync()
-  const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
-  if (!game) return <PageNotFound/>
+  // const apiResult = await getApiResultAsync()
+  // const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
+  // if (!game) return <PageNotFound/>
 
   return(
-    game &&
-    <article key={game.id} className='w-full'>
-      <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
-      <div className='my-2 flex flex-wrap gap-2'>
-        <Link className='btn btn-warning' href={`/game/${id}`}>Juego</Link>
-        {
-          game.guides.length > 0 &&
-          <Link className='btn btn-warning' href={`/game/${id}/timeline`}>Guia Time Line</Link>
-        }
-        {
-          game.characters.length > 0 &&
-          <Link className='btn btn-warning' href={`/game/${id}/character`}>Personajes</Link>
-        }
-        {
-          game.sources.length > 0 &&
-          <Link className='btn btn-warning' href={`/game/${id}/source`}>Fuentes</Link>
-        }
-      </div>
-      <p className='indent-8 p-4 bg-base-200 shadow-md mb-4'>{game.description}</p>
-      { children }
-    </article>
+    <DataContainer>
+      {(apiResult) => (
+        <>
+          {apiResult.statusCode} - {gameId}
+          {children}
+        </>
+      )}
+    </DataContainer>
+    // <article key={game.id} className='w-full'>
+    //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
+    //   <div className='my-2 flex flex-wrap gap-2'>
+    //     <Link className='btn btn-warning' href={`/game/${id}`}>Juego</Link>
+    //     {
+    //       game.guides.length > 0 &&
+    //       <Link className='btn btn-warning' href={`/game/${id}/timeline`}>Guia Time Line</Link>
+    //     }
+    //     {
+    //       game.characters.length > 0 &&
+    //       <Link className='btn btn-warning' href={`/game/${id}/character`}>Personajes</Link>
+    //     }
+    //     {
+    //       game.sources.length > 0 &&
+    //       <Link className='btn btn-warning' href={`/game/${id}/source`}>Fuentes</Link>
+    //     }
+    //   </div>
+    //   <p className='indent-8 p-4 bg-base-200 shadow-md mb-4'>{game.description}</p>
+    //   { children }
+    // </article>
   )
 }
