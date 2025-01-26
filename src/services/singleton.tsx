@@ -39,16 +39,23 @@ export default class Singleton {
     try {
       const res = await fetch(this.apiGetGames, this.requestOptions);
       const data: ApiResult = await res.json();
+
+      if (!res.ok) {
+        throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
+      }
+
       return data;
     } catch (err: unknown) {
-      // Devolver error estándar si ocurre algo
-      const apiResult: ApiResult = {
-        isSucces: false,
-        statusCode: 500,
-        message: err instanceof Error ? err.message : 'Error desconocido',
-        data: []
-      };
-      return apiResult;
+      console.error("Error al obtener los datos de la API:", err);
+      throw new Error(err instanceof Error ? err.message : "Error desconocido");
+
+      // const apiResult: ApiResult = {
+      //   isSucces: false,
+      //   statusCode: 500,
+      //   message: err instanceof Error ? err.message : 'Error desconocido',
+      //   data: []
+      // };
+      // return apiResult;
     }
   };
 
