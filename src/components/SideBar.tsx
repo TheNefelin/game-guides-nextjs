@@ -9,7 +9,7 @@ interface SideBarProps {
 
 export default async function SideBar({ games }: SideBarProps) {
   return (
-    <ul id="id_sidebar" className="bg-base-100 h-full min-w-24 w-28 menu menu-xs pr-0">
+    <ul id="id_sidebar" className="bg-base-100 h-full min-w-24 max-w-24 menu menu-xs pr-0">
       {games.map((game: Game) => (
         game.isActive && 
         <li key={game.id} className="mb-2">
