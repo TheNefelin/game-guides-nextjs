@@ -16,17 +16,16 @@ const requestOptions: RequestOptions = {
     "Accept": "application/json"
   },
 };
-const apiResult: ApiResult = await apiFetch();
 
 async function apiFetch(): Promise<ApiResult> {
   try {
-    const res = await fetch(apiGetGames, requestOptions);
-    const data: ApiResult = await res.json();
+    const res: Response = await fetch(apiGetGames, requestOptions);
 
     if (!res.ok) {
       throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
     }
 
+    const data: ApiResult = await res.json();
     return data;
   } catch (err: unknown) {
     console.error("Error al obtener los datos de la API:", err);
@@ -35,7 +34,7 @@ async function apiFetch(): Promise<ApiResult> {
 };
 
 export async function getApiResultAsync(): Promise<ApiResult> {
-  return await apiResult;
+  return await apiFetch();
 }
 
 // Método para obtener la URL completa de la imagen
