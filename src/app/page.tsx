@@ -1,5 +1,3 @@
-import DataContainer from "@/services/context";
-import { Game } from "@/services/models";
 import Image from "next/image";
 
 export default async function Home() {
