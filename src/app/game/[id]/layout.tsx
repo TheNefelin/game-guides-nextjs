@@ -19,7 +19,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   if (!game) return <PageNotFound/>
 
   return(
-    apiResult.isSucces &&
+    game &&
     <article key={game.id} className='w-full'>
       <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
       <div className='my-2 flex flex-wrap gap-2'>

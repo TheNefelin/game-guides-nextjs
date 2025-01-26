@@ -19,6 +19,7 @@ export default async function GamePage({ params }: GamePageProps) {
   if (!game) return <PageNotFound/>
 
   return(
+    game &&
     game.backgrounds.map((background: Background) => (
       <Image
         key={background.id}
