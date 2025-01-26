@@ -62,7 +62,7 @@ export default class Singleton {
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
     this.getInstance()
-    return await this.apiFetch();
+    return await this.apiResult;
   }
 
   // Método para obtener la URL completa de la imagen
