@@ -19,10 +19,11 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   // if (!game) return <PageNotFound/>
 
   return(
+    <>
+    {gameId}
     <DataContainer>
       {(apiResult) => (
         <div>
-          {gameId}
           Hi: {apiResult.data.map((e: Game) => (
             <div key={e.id}>{e.name}
               {children}
@@ -31,6 +32,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
         </div>
       )}
     </DataContainer>
+    </>
     // <article key={game.id} className='w-full'>
     //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
     //   <div className='my-2 flex flex-wrap gap-2'>
