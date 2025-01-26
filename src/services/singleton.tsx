@@ -22,14 +22,13 @@ export default class Singleton {
 
   private constructor() {
     console.log('Instancia Singleton creada');
-    // Asignamos directamente la promesa
-    // Singleton.apiResult = Singleton.apiFetch();
   }
 
   // Método para obtener la instancia única del Singleton
   private static getInstance(): Singleton {
     if (!this.instance) {
       this.instance = new Singleton();
+      // Asignamos directamente la promesa
       this.apiResult = this.apiFetch();
     }
     return this.instance;
