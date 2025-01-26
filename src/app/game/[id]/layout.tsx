@@ -1,9 +1,10 @@
 import PageNotFound from "@/components/PageNotFound"
+import DataContainer from "@/services/context"
 // import Singleton from "@/services/singleton"
 // import Link from "next/link"
 // import { Game } from "@/services/models"
 // import DataContainer from "@/services/context"
-import { getApiResultAsync } from "@/services/fetching"
+// import { getApiResultAsync } from "@/services/fetching"
 
 interface GameLayoutProps {
   params: Promise<{ id: string }>
@@ -19,13 +20,16 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   // const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
   // if (!game) return <PageNotFound/>
 
-  const apiResult = await getApiResultAsync()
-
   return(
-    <>
-      {gameId} {apiResult.statusCode}
-      {children}
-    </>
+       <DataContainer>
+          {(apiResult) => (
+            <>
+              {gameId}
+              {apiResult.statusCode}
+              {children}
+            </>
+          )}
+        </DataContainer>
     // <article key={game.id} className='w-full'>
     //   <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
     //   <div className='my-2 flex flex-wrap gap-2'>

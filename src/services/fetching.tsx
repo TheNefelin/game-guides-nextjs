@@ -16,6 +16,7 @@ const requestOptions: RequestOptions = {
     "Accept": "application/json"
   },
 };
+const apiResult: ApiResult = await apiFetch();
 
 async function apiFetch(): Promise<ApiResult> {
   try {
@@ -34,7 +35,7 @@ async function apiFetch(): Promise<ApiResult> {
 };
 
 export async function getApiResultAsync(): Promise<ApiResult> {
-  return await apiFetch();
+  return await apiResult;
 }
 
 // Método para obtener la URL completa de la imagen
