@@ -1,8 +1,7 @@
 import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
-import { getApiResultAsync, getImgPath } from "@/services/fetching"
 import { Background, Game } from "@/services/models"
-// import Singleton from "@/services/singleton"
+import Singleton from "@/services/singleton"
 
 interface GamePageProps {
   params: Promise<{ id: string }>
@@ -14,7 +13,7 @@ export default async function GamePage({ params }: GamePageProps) {
   const gameId: number = Number(id)
 
   // const apiResult = await Singleton.getApiResultAsync()
-  const apiResult = await getApiResultAsync()
+  const apiResult = await Singleton.getApiResultAsync()
   const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
   if (!game) return <PageNotFound/>
 
@@ -24,11 +23,11 @@ export default async function GamePage({ params }: GamePageProps) {
       <Image
         key={background.id}
         className='m-auto shadow-xl mb-4 p-2'
-        src={getImgPath(background.imgUrl)}
+        src={Singleton.getImgPath(background.imgUrl)}
         alt='background'
         width={1280}
         height={720}
-        blurDataURL={getImgPath(background.imgUrl)}
+        blurDataURL={Singleton.getImgPath(background.imgUrl)}
         placeholder="blur"
       >
       </Image>

@@ -1,4 +1,4 @@
-import { ApiResult } from "./models";
+import { ApiResult, Game } from "./models";
 
 interface RequestOptions extends RequestInit {
   method: string;
@@ -28,7 +28,6 @@ export default class Singleton {
   private static getInstance(): Singleton {
     if (!this.instance) {
       this.instance = new Singleton();
-      // Asignamos directamente la promesa
       this.apiResult = this.apiFetch();
     }
     return this.instance;
@@ -48,14 +47,6 @@ export default class Singleton {
     } catch (err: unknown) {
       console.error("Error al obtener los datos de la API:", err);
       throw new Error(err instanceof Error ? err.message : "Error desconocido");
-
-      // const apiResult: ApiResult = {
-      //   isSucces: false,
-      //   statusCode: 500,
-      //   message: err instanceof Error ? err.message : 'Error desconocido',
-      //   data: []
-      // };
-      // return apiResult;
     }
   };
 
@@ -63,6 +54,11 @@ export default class Singleton {
   public static async getApiResultAsync(): Promise<ApiResult> {
     this.getInstance()
     return await this.apiResult;
+  }
+
+  public static async getGameAsync(id: number): Promise<Game | undefined> {
+    this.getInstance()
+    return await (await this.apiResult).data.find(e => e.id === id)
   }
 
   // Método para obtener la URL completa de la imagen
