@@ -1,6 +1,6 @@
-import { getApiResultAsync } from "./fetching"
 import { ApiResult } from "./models"
-// import Singleton from "./singleton"
+import Singleton from "./singleton"
+// import { getApiResultAsync } from "./fetching"
 
 export default async function DataContainer({ 
   children 
@@ -9,8 +9,8 @@ export default async function DataContainer({
 }) {
   // Fetch data on the server
   
-  // const apiResult = await Singleton.getApiResultAsync()
-  const apiResult = await getApiResultAsync()
+  const apiResult = await Singleton.getApiResultAsync()
+  // const apiResult = await getApiResultAsync()
 
   // Pass fetched data to children
   return (
