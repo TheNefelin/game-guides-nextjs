@@ -8,6 +8,7 @@ export default async function DataContainer({
   children: (apiResult: ApiResult) => React.ReactNode 
 }) {
   // Fetch data on the server
+  
   // const apiResult = await Singleton.getApiResultAsync()
   const apiResult = await getApiResultAsync()
 
