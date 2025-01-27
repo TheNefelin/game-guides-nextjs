@@ -13,8 +13,7 @@ export default async function GamePage({ params }: GamePageProps) {
   const gameId: number = Number(id)
 
   // const apiResult = await Singleton.getApiResultAsync()
-  const apiResult = await Singleton.getApiResultAsync()
-  const game: Game | undefined = apiResult.data.find(e => e.id === gameId);
+  const game: Game | undefined = await Singleton.getGameAsync(gameId)
   if (!game) return <PageNotFound/>
 
   return(

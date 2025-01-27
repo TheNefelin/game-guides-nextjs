@@ -13,7 +13,7 @@ export default class Singleton {
   private static readonly apiGetGames: string = process.env.API_GET_GAMES!;
   private static readonly apiGetImg: string = process.env.API_GET_IMG!;
   private static readonly requestOptions: RequestOptions = {
-    // cache: 'no-store',
+    cache: 'no-store', // or 'force-cache'
     method: "GET",
     headers: {
       "Accept": "application/json"
