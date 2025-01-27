@@ -1,8 +1,7 @@
 import PageNotFound from "@/components/PageNotFound";
-// import Singleton from "@/services/singleton";
+import Singleton from "@/services/singleton";
 import TimelineGuide from "@/components/TimelineGuide";
 import { Game } from "@/services/models";
-import { getGameAsync } from "@/services/fetching";
 
 interface CharacterPageProps {
   params: Promise<{ id: string }>
@@ -13,8 +12,7 @@ export default async function TimelinePage({ params }: CharacterPageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
-  const game: Game | undefined = await getGameAsync(gameId)
+  const game: Game | undefined = await Singleton.getGameAsync(gameId)
   if (!game) return <PageNotFound/>
   
   return(

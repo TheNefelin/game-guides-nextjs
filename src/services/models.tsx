@@ -40,6 +40,13 @@ export interface Guide {
   name: string
   sort: number
   adventures: Adventure[]
+  guidesUser: GuidesUser[]
+}
+
+export interface GuidesUser {
+  id_Guide: number
+  id_User: string
+  isCheck: boolean
 }
 
 export interface Adventure {
@@ -48,6 +55,13 @@ export interface Adventure {
   isImportant: boolean
   sort: number
   adventuresImg: AdventureImg[]
+  adventuresUser: AdventuresUser[]
+}
+
+export interface AdventuresUser {
+  id_Adventure: number
+  id_User: string
+  isCheck: boolean
 }
 
 export interface AdventureImg {
