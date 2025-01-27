@@ -1,7 +1,8 @@
 import Link from "next/link"
 import PageNotFound from "@/components/PageNotFound"
-import Singleton from "@/services/singleton"
+// import Singleton from "@/services/singleton"
 import { Game } from "@/services/models"
+import { getGameAsync } from "@/services/fetching"
 
 interface GameLayoutProps {
   params: Promise<{ id: string }>
@@ -14,15 +15,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   // const game: Game | undefined = await Singleton.getGameAsync(gameId)
-
-  let game: Game | undefined;
-  try {
-    game = await Singleton.getGameAsync(gameId);
-  } catch (err) {
-    console.error("Error al obtener el juego:", err);
-    return <PageNotFound />;
-  }
-  
+  const game: Game | undefined = await getGameAsync(gameId)  
   if (!game) return <PageNotFound/>
 
   return(
