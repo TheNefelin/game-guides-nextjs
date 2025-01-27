@@ -7,17 +7,17 @@ graph TD;
     RootLayout --> SideBar
     RootLayout --> RootChildren
 
-    RootLayout {Children} --> HomePage
-    SideBar --> RootLayout {Children}
+    RootLayout{Children} --> HomePage
+    SideBar --> RootLayout{Children}
 
-    RootLayout {Children} --> GameLayout
-    GameLayout ->> GameLayout {children}
+    RootLayout{Children} --> GameLayout
+    GameLayout ->> GameLayout{children}
 
-    GameLayout {children} --> GamePage
-    GameLayout {children} --> TimeLinePage
-    GameLayout {children} --> CharacterPage        
-    GameLayout {children} --> SourcePage
-    GameLayout {children} --> BackgroundImg
+    GameLayout{children} --> GamePage
+    GameLayout{children} --> TimeLinePage
+    GameLayout{children} --> CharacterPage        
+    GameLayout{children} --> SourcePage
+    GameLayout{children} --> BackgroundImg
     ;
 ```
 
