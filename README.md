@@ -11,13 +11,13 @@ graph TD;
     SideBar --> id1["RootLayout {Children}"]
 
     id1["RootLayout {Children}"] --> GameLayout
-    GameLayout --> id1["GameLayout {Children}"]
+    GameLayout --> id2["GameLayout {Children}"]
 
-    id1["GameLayout {Children}"] --> GamePage
-    id1["GameLayout {Children}"] --> TimeLinePage
-    id1["GameLayout {Children}"] --> CharacterPage        
-    id1["GameLayout {Children}"] --> SourcePage
-    id1["GameLayout {Children}"] --> BackgroundImg
+    id2["GameLayout {Children}"] --> GamePage
+    id2["GameLayout {Children}"] --> TimeLinePage
+    id2["GameLayout {Children}"] --> CharacterPage        
+    id2["GameLayout {Children}"] --> SourcePage
+    id2["GameLayout {Children}"] --> BackgroundImg
     ;
 ```
 
