@@ -8,8 +8,8 @@ interface Props {
 export default function BtnUpGuide(props: Props) {
   return (
     <Link
-    href={`#${props.id_guia_acordion}`}
-    className="grid justify-end"
+      href={`#${props.id_guia_acordion}`}
+      className="grid justify-end"
     >
       <Image
         src="/arrow.gif"

@@ -12,7 +12,16 @@ export default async function GamePage({ params }: GamePageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const game: Game | undefined = await Singleton.getGameAsync(gameId)
+  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
+
+  let game: Game | undefined;
+  try {
+    game = await Singleton.getGameAsync(gameId);
+  } catch (err) {
+    console.error("Error al obtener el juego:", err);
+    return <PageNotFound />;
+  }
+  
   if (!game) return <PageNotFound/>
 
   return(
