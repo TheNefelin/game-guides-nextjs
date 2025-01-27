@@ -5,19 +5,19 @@
 graph TD;
     RootLayout --> NavBar
     RootLayout --> SideBar
-    RootLayout --> RootChildren
+    RootLayout --> id1["RootLayout {Children}"]
 
     id1["RootLayout {Children}"] --> HomePage
-    SideBar --> RootLayout{Children}
+    SideBar --> id1["RootLayout {Children}"]
 
-    RootLayout{Children} --> GameLayout
-    GameLayout --> GameLayout{children}
+    id1["RootLayout {Children}"] --> GameLayout
+    GameLayout --> id1["GameLayout {Children}"]
 
-    GameLayout{children} --> GamePage
-    GameLayout{children} --> TimeLinePage
-    GameLayout{children} --> CharacterPage        
-    GameLayout{children} --> SourcePage
-    GameLayout{children} --> BackgroundImg
+    id1["GameLayout {Children}"] --> GamePage
+    id1["GameLayout {Children}"] --> TimeLinePage
+    id1["GameLayout {Children}"] --> CharacterPage        
+    id1["GameLayout {Children}"] --> SourcePage
+    id1["GameLayout {Children}"] --> BackgroundImg
     ;
 ```
 
