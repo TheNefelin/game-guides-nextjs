@@ -17,11 +17,9 @@ export default async function SourcePage({ params }: CharacterPageProps) {
   
   return(
     <div className='flex flex-col gap-1 pl-16 py-4 bg-base-200 shadow-md mb-4'>
-      {
-        game.sources.map((source: Source) => (
-          <Link key={source.id} className='link' target="_blank" href={source.url}>{source.name}</Link>
-        ))
-      }
+      {game.sources.map((source: Source) => (
+        <Link key={source.id} className='link' target="_blank" href={source.url}>{source.name}</Link>
+      ))}
     </div>
   )
 }
