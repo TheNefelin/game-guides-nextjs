@@ -28,8 +28,8 @@ export default class Singleton {
   private static getInstance(): Singleton {
     if (!this.instance) {
       this.instance = new Singleton();
-      this.apiResult = this.apiFetch();
     }
+    this.apiResult = this.apiFetch();
     return this.instance;
   }
 
@@ -62,7 +62,7 @@ export default class Singleton {
     if (!this.apiResult) {
       this.getInstance();
     }
-    return await (await this.apiResult).data.find(e => e.id === id)
+    return (await this.apiResult).data.find(e => e.id === id)
   }
 
   // Método para obtener la URL completa de la imagen
