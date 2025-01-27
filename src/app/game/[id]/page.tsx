@@ -12,12 +12,10 @@ export default async function GamePage({ params }: GamePageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  // const apiResult = await Singleton.getApiResultAsync()
   const game: Game | undefined = await Singleton.getGameAsync(gameId)
   if (!game) return <PageNotFound/>
 
   return(
-    game &&
     game.backgrounds.map((background: Background) => (
       <Image
         key={background.id}
