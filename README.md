@@ -7,7 +7,7 @@ graph TD;
     RootLayout --> SideBar
     RootLayout --> RootChildren
 
-    RootLayout{Children} --> HomePage
+    id1[RootLayout {Children}] --> HomePage
     SideBar --> RootLayout{Children}
 
     RootLayout{Children} --> GameLayout
