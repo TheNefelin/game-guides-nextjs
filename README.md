@@ -3,18 +3,28 @@
 ## Page Structure
 ```mermaid
 graph TD;
-    App --> NavBar
-    App --> SideBar
-    App --> Pages
+    RootLayout --> NavBar
+    RootLayout --> SideBar
+    RootLayout --> RootChildren
 
-    SideBar --> Navigation
-    Navigation --> Pages
+    RootChildren --> HomePage
+    SideBar --> RootChildren
 
-    Pages --> Background    
-    Pages --> Guide
-    Pages --> Character
-    Pages --> Source    
+    RootChildren --> GameLayout
+    GameLayout --> GamePage
+    GameLayout --> TimeLinePage
+    GameLayout --> CharacterPage        
+    GameLayout --> SourcePage
+    
+    GamePage --> BackgroundImg
     ;
+```
+
+# Environment
+* Create the .env.local file at the root of your project
+```
+API_GET_GAMES=api_uri
+API_GET_IMG=api_img_uri
 ```
 
 # Images

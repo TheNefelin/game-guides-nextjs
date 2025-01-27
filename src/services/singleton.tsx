@@ -52,12 +52,16 @@ export default class Singleton {
 
   // Método estático para obtener el resultado de la API
   public static async getApiResultAsync(): Promise<ApiResult> {
-    this.getInstance()
-    return await this.apiResult;
+    if (!this.apiResult) {
+      this.getInstance();
+    }
+    return this.apiResult;
   }
 
   public static async getGameAsync(id: number): Promise<Game | undefined> {
-    this.getInstance()
+    if (!this.apiResult) {
+      this.getInstance();
+    }
     return await (await this.apiResult).data.find(e => e.id === id)
   }
 
