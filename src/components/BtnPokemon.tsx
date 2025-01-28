@@ -23,8 +23,8 @@ export default function BtnPokemon() {
         className="m-0 p-0 object-contain"
         src="/mewtwo.png"
         alt="Pokemon Button"
-        width={70}
-        height={70}
+        width={60}
+        height={60}
         priority={true}
       ></Image>
     </button>

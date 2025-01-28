@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function BtnLogo() {
   return (
-    <Link href={"/"} className="btn bg-transparent border-none shadow-none hover:bg-transparent px-2 normal-case text-xl ml-16">
+    <Link href={"/"} className="btn bg-transparent border-none shadow-none hover:bg-transparent px-2 normal-case text-xl ml-14">
       <Image
         src="/logo.png"
         alt='Logo'
