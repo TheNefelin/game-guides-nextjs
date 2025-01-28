@@ -1,7 +1,8 @@
 import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
-import Singleton from "@/services/singleton"
+// import Singleton from "@/services/singleton"
 import { Character, Game } from "@/services/models"
+import { getGameAsync, getImgPath } from "@/services/fetching"
 
 interface CharacterPageProps {
   params: Promise<{ id: string }>
@@ -12,7 +13,8 @@ export default async function CharacterPage({ params }: CharacterPageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const game: Game | undefined = await Singleton.getGameAsync(gameId)
+  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
+  const game: Game | undefined = await getGameAsync(gameId)  
   if (!game) return <PageNotFound/>
 
   return(
@@ -22,11 +24,11 @@ export default async function CharacterPage({ params }: CharacterPageProps) {
         <figure>
           <Image
             className='w-auto min-w-24 pt-4'
-            src={Singleton.getImgPath(character.imgUrl)}
+            src={getImgPath(character.imgUrl)}
             alt={character.name}
             height={50}
             width={50}
-            blurDataURL={Singleton.getImgPath(character.imgUrl)}
+            blurDataURL={getImgPath(character.imgUrl)}
             placeholder="blur"
           />
         </figure>

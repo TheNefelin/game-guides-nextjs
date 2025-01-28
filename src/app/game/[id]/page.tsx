@@ -1,8 +1,8 @@
 import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 import { Background, Game } from "@/services/models"
-import Singleton from "@/services/singleton"
-import { getGameAsync } from "@/services/fetching"
+// import Singleton from "@/services/singleton"
+import { getGameAsync, getImgPath } from "@/services/fetching"
 
 interface GamePageProps {
   params: Promise<{ id: string }>
@@ -22,11 +22,11 @@ export default async function GamePage({ params }: GamePageProps) {
       <Image
         key={background.id}
         className='m-auto shadow-xl mb-4 p-2'
-        src={Singleton.getImgPath(background.imgUrl)}
+        src={getImgPath(background.imgUrl)}
         alt='background'
         width={1280}
         height={720}
-        blurDataURL={Singleton.getImgPath(background.imgUrl)}
+        blurDataURL={getImgPath(background.imgUrl)}
         placeholder="blur"
       >
       </Image>

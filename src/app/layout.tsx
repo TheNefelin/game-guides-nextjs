@@ -7,6 +7,7 @@ import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
 import React from "react";
 import Singleton from "@/services/singleton";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: {children: React.ReactNod
         </section>
 
         <BtnUp/>
+        <Footer/>
       </body>
     </html>
   );
