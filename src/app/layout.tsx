@@ -7,7 +7,7 @@ import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
 import React from "react";
 import Singleton from "@/services/singleton";
-import Footer from "@/components/Footer";
+import NavFooter from "@/components/NavFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: {children: React.ReactNod
         <BtnPokemon/>
         <NavBar/>
 
-        <section className="flex gap-2 mt-4">
+        <section className="flex">
           {apiResult.isSucces ? 
           <>
             <SideBar games={apiResult.data}/>
@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: {children: React.ReactNod
         </section>
 
         <BtnUp/>
-        <Footer/>
+        <NavFooter/>
       </body>
     </html>
   );

@@ -19,7 +19,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   if (!game) return <PageNotFound/>
 
   return(
-    <article key={game.id} className='w-full'>
+    <article key={game.id} className='w-full px-2 py-4'>
       <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
       <div className='my-2 flex flex-wrap gap-2'>
         <Link className='btn btn-sm btn-warning' href={`/game/${id}`}>Juego</Link>

@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function Footer() {
+export default function NavFooter() {
   return (
     <footer className="bg-neutral text-neutral-content p-4 mt-4 grid gap-4 bottom-0">
       <nav className="flex justify-center gap-4">
