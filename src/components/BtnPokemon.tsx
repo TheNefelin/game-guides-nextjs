@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useState } from "react"
 
 export default function BtnPokemon() {
-  const [menu, setMenu] = useState(true)
+  const [menu, setMenu] = useState(false)
 
   const handleClick = async () => {
     const sideBar = document.querySelector("#id_sidebar")
@@ -14,7 +14,6 @@ export default function BtnPokemon() {
     } else {
       sideBar?.classList.add("hidden")
     }
-    console.log(sideBar)
   }
 
   return (

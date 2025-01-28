@@ -20,6 +20,33 @@ graph TD;
     id2["GameLayout {Children}"] --> BackgroundImg
     ;
 ```
+```
+/
+├── src/
+│   ├── app/
+│   │   ├── game/
+│   │   │   └── [id]/
+│   │   │       ├── character/
+│   │   │       │   └── page.tsx
+│   │   │       ├── source/
+│   │   │       │   └── page.tsx
+│   │   │       ├── timeline/
+│   │   │       │   └── page.tsx
+│   │   │       ├── layout.tsx
+│   │   │       └── page.tsx
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │       └── ...tsx
+│   └── services/
+│           ├── models.tsx
+│           └── fetching.tsx // or singleton.tsx
+├── .env.local
+├── next.config.ts
+└── tailwind.config.ts
+```
 
 # Environment
 * Create the .env.local file at the root of your project
@@ -29,20 +56,70 @@ API_GET_IMG=api_img_uri
 ```
 
 # Images
-* Config in fetch
-```
-```
 * Config image domine in next.config.ts
 ```
 images: {
   remotePatterns: [
     {
       protocol: 'https',
-      hostname: 'dragonra.bsite.net',
+      hostname: 'my.url.net',
       pathname: '/api/img/**',
     },
   ],
 },
+```
+
+# Passing Props to a Component
+```
+interface RootLayoutProps {
+  children: React.ReactNode
+}
+
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const apiResult = await Singleton.getApiResultAsync()
+  return (
+    <>
+      <SideBar games={apiResult.data}/>
+      {children}
+    </>
+  );
+}
+```
+```
+interface SideBarProps {
+  games: Game[]
+}
+
+export default async function SideBar({ games }: SideBarProps) {
+  console.log(games)
+
+  return (
+    <div>Hola</div>  
+  )
+}
+```
+
+# Client Toggle
+```
+export default function BtnPokemon() {
+  const [menu, setMenu] = useState(false)
+
+  const handleClick = async () => {
+    const sideBar = document.querySelector("#id_sidebar")
+    setMenu(!menu)
+
+    if (menu){
+      sideBar?.classList.remove("hidden")
+    } else {
+      sideBar?.classList.add("hidden")
+    }
+  }
+
+  return (
+    <button onClick={ handleClick } className='bg-base-100/
+    </button>
+  )
+}
 ```
 
 <hr>
