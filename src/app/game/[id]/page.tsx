@@ -2,6 +2,7 @@ import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 import { Background, Game } from "@/services/models"
 import Singleton from "@/services/singleton"
+import { getGameAsync } from "@/services/fetching"
 
 interface GamePageProps {
   params: Promise<{ id: string }>
@@ -12,7 +13,8 @@ export default async function GamePage({ params }: GamePageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const game: Game | undefined = await Singleton.getGameAsync(gameId)  
+  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
+  const game: Game | undefined = await getGameAsync(gameId)  
   if (!game) return <PageNotFound/>
 
   return(
