@@ -196,13 +196,13 @@ http://localhost:3000/api/auth/callback/google
 // url 2
 https://my.uri.app/api/auth/callback/google
 ```
-### Create Route for Auth
-* src/app/api/auth/[...nextauth]/route.tsx
+### Create Route for AuthOptions
+* src/services/authOptions.tsx
 ```
-import NextAuth, { AuthOptions } from "next-auth"
+import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
@@ -215,12 +215,17 @@ export const authOptions: AuthOptions = {
       console.log('session', session);
       
       return session
-    }
-  }
+    },
+  },
 }
+```
+### Create Route for Auth
+* src/app/api/auth/[...nextauth]/route.tsx
+```
+import { authOptions } from "@/services/authOptions"
+import NextAuth from "next-auth"
 
 const handler = NextAuth(authOptions)
-
 export { handler as GET, handler as POST }
 ```
 ### Create Context for Session
