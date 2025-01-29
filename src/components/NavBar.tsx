@@ -1,4 +1,4 @@
-import BtnLogin from "./BtnLogin";
+import BtnAuth from "./BtnAuth";
 import BtnLogo from "./BtnLogo";
 import BtnTheme from "./BtnTheme";
 
@@ -9,7 +9,7 @@ export default function NavBar() {
         <BtnLogo/>
         <BtnTheme/>
       </span>
-      <BtnLogin/>
+      <BtnAuth/>
     </section>
   )
 }

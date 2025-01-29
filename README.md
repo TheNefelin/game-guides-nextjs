@@ -1,6 +1,21 @@
 # Game Guides NextJS
 
-## Page Structure
+## Content
+* [Page Structure](#page-structure)
+* [Environment](#environment)
+* [Images](#images)
+* [Passing Props to a Component](#passing-props-to-a-component)
+* [Client Toggle](#client-toggle)
+* [Google Auth](#google-auth)
+
+## Dependencies
+```
+// nextjs tailwindcss
+npm install daisyui
+npm install next-auth
+```
+
+# Page Structure
 ```mermaid
 graph TD;
     RootLayout --> NavBar
@@ -24,6 +39,9 @@ graph TD;
 /
 ├── src/
 │   ├── app/
+│   │   ├── api/
+│   │   │   └── auth/
+│   │   │       └── [...nextauth].ts
 │   │   ├── game/
 │   │   │   └── [id]/
 │   │   │       ├── character/
@@ -49,10 +67,17 @@ graph TD;
 ```
 
 # Environment
-* Create the .env.local file at the root of your project
+* Create the .env.local file at the root of your project (..env.local.demo)
 ```
-API_GET_GAMES=api_uri
-API_GET_IMG=api_img_uri
+API_GET_GAMES=
+API_GET_IMG=
+API_KEY=
+
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=
+
+GOOGLE_ID=
+GOOGLE_SECRET=
 ```
 
 # Images
@@ -118,6 +143,136 @@ export default function BtnPokemon() {
   return (
     <button onClick={ handleClick } className='bg-base-100/
     </button>
+  )
+}
+```
+
+# Google Auth
+* [Google Console](https://console.cloud.google.com/apis)
+* [Google oAuth2](https://developers.google.com/identity/openid-connect/openid-connect)
+* [NextJS Auth](https://next-auth.js.org/providers/google)
+* [NextJS Auth Example](https://next-auth.js.org/getting-started/example)
+
+### Config next.config.ts
+```
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/a/**',
+      },
+    ],
+  },
+};
+```
+### Config .env.local
+* NEXTAUTH_URL: use develop or production url
+* NEXTAUTH_SECRET: add random token [Generate Plus](https://generate.plus/en/base64)
+* GOOGLE_ID: add google id from [Google Credentials](https://console.cloud.google.com/apis/credentials?inv=1&invt=AboJbQ&project=nextauth13)
+* GOOGLE_SECRET: add google secret from [Google Credentials](https://console.cloud.google.com/apis/credentials?inv=1&invt=AboJbQ&project=nextauth13)
+```
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+GOOGLE_ID=
+GOOGLE_SECRET=
+```
+### Google Credentials
+* Create Google Credentials
+* Add Develop url and Production url
+* Add Auth Redirection
+* Copy Google ID and Google Secret
+```
+// url 1
+http://localhost:3000
+// url 2
+https://my.uri.app
+```
+```
+// url 1
+http://localhost:3000/api/auth/callback/google
+// url 2
+https://my.uri.app/api/auth/callback/google
+```
+### Create Route for Auth
+* src/app/api/auth/[...nextauth]/route.tsx
+```
+import NextAuth, { AuthOptions } from "next-auth"
+import GoogleProvider from "next-auth/providers/google";
+
+export const authOptions: AuthOptions = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string
+    }),
+  ],
+  callbacks: {
+    async session({ session, token }) {
+      console.log('token', token);
+      console.log('session', session);
+      
+      return session
+    }
+  }
+}
+
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }
+```
+### Create Context for Session
+* src/services/SessionProviderContext.tsx
+```
+"use client"
+import { SessionProvider } from "next-auth/react";
+
+export default function SessionProviderContext({ children }: { children: React.ReactNode }) {
+  return (
+    <SessionProvider>
+      { children }
+    </SessionProvider>
+  )
+}
+```
+### Implementation
+```
+interface RootLayoutProps {
+  {children: React.ReactNode}
+}
+
+export default async function RootLayout({ children }: RootLayoutProps) {
+
+  return (
+    <SessionProviderContext>
+      { children }
+    </SessionProviderContext>
+  )
+}
+```
+```
+'use client'
+import { signIn, signOut, useSession } from "next-auth/react";
+
+export default function BtnAuth() {
+  const auth = useSession()
+  const user = auth.data?.user
+
+  const login = async () => {
+    await signIn("google", { callbackUrl: "/" })
+  }
+
+  const logout = async () => {
+    await signOut({ callbackUrl: "/" })
+  }
+  
+  return (
+    user ? 
+      <button onClick={logout}>LogIn</button>
+    :
+      <button onClick={login}>Logout</button>
   )
 }
 ```

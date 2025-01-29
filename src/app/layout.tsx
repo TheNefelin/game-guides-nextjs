@@ -8,6 +8,7 @@ import BtnPokemon from "@/components/BtnPokemon";
 import React from "react";
 import Singleton from "@/services/singleton";
 import NavFooter from "@/components/NavFooter";
+import SessionProviderContext from "@/services/SessionProviderContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,10 @@ export default async function RootLayout({ children }: {children: React.ReactNod
     <html lang="es">
       <body id="id_body" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <BtnPokemon/>
-        <NavBar/>
+
+        <SessionProviderContext>
+          <NavBar/>
+        </SessionProviderContext>
 
         <section className="flex">
           {apiResult.isSucces ? 

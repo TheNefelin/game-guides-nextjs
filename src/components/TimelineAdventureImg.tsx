@@ -1,6 +1,6 @@
 import Image from "next/image"
-import Singleton from "@/services/singleton";
 import { AdventureImg } from "@/services/models";
+import { getImgPath } from "@/services/fetching";
 
 interface AdventureImgProps {
   adventuresImg: AdventureImg[],
@@ -14,11 +14,11 @@ export default function TimelineAdventureImg({ adventuresImg }: AdventureImgProp
         <Image
           key={adventureImg.id}
           className='shadow-md rounded'
-          src={Singleton.getImgPath(adventureImg.imgUrl)}
+          src={getImgPath(adventureImg.imgUrl)}
           alt="Imagen de Guia"
           width={608}
           height={427}
-          blurDataURL={Singleton.getImgPath(adventureImg.imgUrl)}
+          blurDataURL={getImgPath(adventureImg.imgUrl)}
           placeholder="blur"
           style={{ width: 'auto', height: 'auto' }}
         ></Image>

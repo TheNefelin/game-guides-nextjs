@@ -64,9 +64,4 @@ export default class Singleton {
     }
     return (await this.apiResult).data.find(e => e.id === id)
   }
-
-  // Método para obtener la URL completa de la imagen
-  public static getImgPath(imgUrl: string): string {
-    return `${this.apiGetImg}${imgUrl}`;
-  }
 }

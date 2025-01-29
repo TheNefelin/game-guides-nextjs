@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import Singleton from "@/services/singleton"
 import { Game } from "@/services/models"
+import { getImgPath } from "@/services/fetching"
 
 interface SideBarProps {
   games: Game[]
@@ -19,7 +19,7 @@ export default async function SideBar({ games }: SideBarProps) {
                 <Image
                   className="shadow-md"
                   rel="preload"
-                  src={Singleton.getImgPath(game.imgUrl)}
+                  src={getImgPath(game.imgUrl)}
                   width={65}
                   height={65}
                   alt={game.name}
