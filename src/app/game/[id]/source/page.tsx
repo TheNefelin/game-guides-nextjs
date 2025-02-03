@@ -2,7 +2,9 @@ import Link from "next/link";
 import PageNotFound from "@/components/PageNotFound";
 // import Singleton from "@/services/singleton";
 import { Game, Source } from "@/services/models";
-import { getGameAsync } from "@/services/fetching";
+import { getApiResultAsync } from "@/services/fetching";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/services/authOptions";
 
 interface CharacterPageProps {
   params: Promise<{ id: string }>
@@ -13,13 +15,13 @@ export default async function SourcePage({ params }: CharacterPageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
-  const game: Game | undefined = await getGameAsync(gameId) 
-  if (!game) return <PageNotFound/>
-  
+  const session = await getServerSession(authOptions)
+  const apiResult = await getApiResultAsync(session?.user?.apiData?.id)
+  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
+
   return(
     <div className='flex flex-col gap-1 pl-16 py-4 bg-base-200 shadow-md mb-4'>
-      {game.sources.map((source: Source) => (
+      {game?.sources.map((source: Source) => (
         <Link key={source.id} className='link' target="_blank" href={source.url}>{source.name}</Link>
       ))}
     </div>

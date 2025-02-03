@@ -40,7 +40,7 @@ export interface Guide {
   name: string
   sort: number
   adventures: Adventure[]
-  guidesUser: GuidesUser[]
+  guideUser: GuidesUser
 }
 
 export interface GuidesUser {
@@ -74,4 +74,23 @@ export interface GoogleBody {
   email: string,
   sub: string,
   jti: string
+}
+
+export interface ApiAuthResult {
+  isSucces: boolean
+  statusCode: number
+  message: string
+  data: LoggedGoogleToken
+}
+
+export interface ApiAuthResult {
+  isSucces: boolean
+  statusCode: number
+  message: string
+  data: LoggedGoogleToken
+}
+
+export interface LoggedGoogleToken {
+  id: string,
+  sqlToken: string
 }

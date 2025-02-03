@@ -1,12 +1,11 @@
 'use client'
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Loading from "./Loading";
 
 export default function BtnLogin() {
-  const auth = useSession()
-  const user = auth.data?.user
-
-  console.log(auth)
+  const session = useSession()
+  const user = session.data?.user
 
   const login = async () => {
     await signIn("google", { callbackUrl: "/" })
@@ -14,6 +13,14 @@ export default function BtnLogin() {
 
   const logout = async () => {
     await signOut({ callbackUrl: "/" })
+  }
+
+  if (session.status === "loading") {
+    return (
+      <span>
+        <Loading />
+      </span>
+    )
   }
   
   return (

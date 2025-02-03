@@ -1,4 +1,4 @@
-import { ApiResult, Game, GoogleBody } from "./models";
+import { ApiAuthResult, ApiResult, GoogleBody, GuidesUser } from "./models";
 
 interface RequestOptions extends RequestInit {
   method: string;
@@ -21,13 +21,13 @@ const getRequestOptions: RequestOptions = {
     "ApiKey": apiKey
   },
 };
-const postRequestOptions = (body: GoogleBody): RequestOptions => {
+const postRequestOptions = (body: GoogleBody | GuidesUser): RequestOptions => {
   return {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "ApiKey": apiKey
+      "ApiKey": "Esmerilemelo-777"
     },
     body: JSON.stringify(body)
   };  
@@ -49,17 +49,33 @@ const apiFetch = async (apiUri: string, requestOptions: RequestOptions): Promise
   }
 };
 
-export async function loginGoogleAsync(body: GoogleBody): Promise<ApiResult> {
-  return await apiFetch(`${apiUrl}/auth/google`, postRequestOptions(body));
+const apiAuthFetch = async (apiUri: string, requestOptions: RequestOptions): Promise<ApiAuthResult> => {
+  try {
+    const res = await fetch(apiUri, requestOptions);
+    const data: ApiAuthResult = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
+    }
+
+    return data;
+  } catch (err: unknown) {
+    console.error("Error al obtener los datos de la API:", err);
+    throw new Error(err instanceof Error ? err.message : "Error desconocido");
+  }
+};
+
+export async function loginGoogleAsync(body: GoogleBody): Promise<ApiAuthResult> {
+  return await apiAuthFetch(`${apiUrl}/auth/google`, postRequestOptions(body));
 }
 
-export async function getApiResultAsync(): Promise<ApiResult> {
-  return await apiFetch(`${apiUrl}/game-guide/dapper`, getRequestOptions);
+export async function postGuideCheck(body: GuidesUser): Promise<ApiResult> {
+  return await apiFetch(`https://dragonra.bsite.net/api/game-guide/guide`, postRequestOptions(body));
 }
 
-export async function getGameAsync(id: number): Promise<Game | undefined> {
-  const apiResult = await apiFetch(`${apiUrl}/game-guide/dapper`, getRequestOptions)
-  return apiResult.data?.find(e => e.id === id)
+export async function getApiResultAsync(id_user: string | undefined): Promise<ApiResult> {
+  id_user = id_user !== undefined ? id_user : "";
+  return await apiFetch(`${apiUrl}/game-guide/dapper/${id_user}`, getRequestOptions);
 }
 
 export function getImgPath(imgUrl: string): string {

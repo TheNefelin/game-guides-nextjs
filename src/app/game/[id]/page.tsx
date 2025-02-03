@@ -2,7 +2,9 @@ import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 import { Background, Game } from "@/services/models"
 // import Singleton from "@/services/singleton"
-import { getGameAsync, getImgPath } from "@/services/fetching"
+import { getApiResultAsync, getImgPath } from "@/services/fetching"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/services/authOptions"
 
 interface GamePageProps {
   params: Promise<{ id: string }>
@@ -13,20 +15,21 @@ export default async function GamePage({ params }: GamePageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
-  const game: Game | undefined = await getGameAsync(gameId)  
+  const session = await getServerSession(authOptions)
+  const apiResult = await getApiResultAsync(session?.user?.apiData?.id)
+  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
   if (!game) return <PageNotFound/>
 
   return(
-    game.backgrounds.map((background: Background) => (
+    game.backgrounds.map(async(background: Background) => (
       <Image
         key={background.id}
         className='m-auto shadow-xl mb-4 p-2'
-        src={getImgPath(background.imgUrl)}
+        src={await getImgPath(background.imgUrl)}
         alt='background'
         width={1280}
         height={720}
-        blurDataURL={getImgPath(background.imgUrl)}
+        blurDataURL={await getImgPath(background.imgUrl)}
         placeholder="blur"
       >
       </Image>

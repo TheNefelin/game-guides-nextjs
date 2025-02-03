@@ -3,7 +3,7 @@ import Image from "next/image";
 export default async function Home() {
   return (
     <main className='card-body p-4 mx-2 my-4 bg-base-200 shadow-lg'>
-      <h1>V 1.22</h1>
+      <h1>V 1.23</h1>
       <h1 className="card-title uppercase">bienvenidos !!! &#129409;</h1>
       <p className="indent-4">Esta página nació porque cada vez que juego Chrono Cross y dejo el juego pendiente por mucho tiempo, ya no recuerdo en qué misión voy.</p>
   

@@ -2,7 +2,9 @@ import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 // import Singleton from "@/services/singleton"
 import { Character, Game } from "@/services/models"
-import { getGameAsync, getImgPath } from "@/services/fetching"
+import { getApiResultAsync, getImgPath } from "@/services/fetching"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/services/authOptions"
 
 interface CharacterPageProps {
   params: Promise<{ id: string }>
@@ -13,13 +15,13 @@ export default async function CharacterPage({ params }: CharacterPageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  // const game: Game | undefined = await Singleton.getGameAsync(gameId)
-  const game: Game | undefined = await getGameAsync(gameId)  
-  if (!game) return <PageNotFound/>
+  const session = await getServerSession(authOptions)
+  const apiResult = await getApiResultAsync(session?.user?.apiData?.id)
+  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
 
   return(
     <div className='bg-base-200 mb-4 card card-side shadow-xl flex gap-4 flex-wrap justify-center p-4'>
-      {game.characters.map((character: Character) => (
+      {game?.characters.map((character: Character) => (
         <div key={character.id} className="card bg-base-100 shadow-xl max-w-xs w-full">
         <figure>
           <Image

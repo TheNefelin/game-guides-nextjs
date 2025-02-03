@@ -1,8 +1,47 @@
-export default function TimelineGuideCheck() {
+'use client'
+import { postGuideCheck } from "@/services/fetching"
+import { GuidesUser } from "@/services/models"
+import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
+
+interface TimelineGuideProps {
+  guidesUser: GuidesUser
+}
+
+
+export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
+  const auth = useSession()
+
+  if (guidesUser.id_Guide === 1) {
+    console.log(guidesUser)
+    console.log(auth.data?.user?.apiData?.id)
+  }
+    
+  const [isCheck, setIsCheck] = useState(guidesUser.isCheck)
+
+  const handleClick = async () => {
+    setIsCheck(isCheck => !isCheck)
+
+    guidesUser.isCheck = !isCheck;
+
+    const result = await postGuideCheck(guidesUser)
+    console.log(result)
+  }
+
+  useEffect(() => {
+    const el = document.querySelector(`#G-${guidesUser.id_Guide}`)
+
+    if (isCheck) {
+      el?.classList.add("bg-success", "text-success-content")
+    } else {
+      el?.classList.remove("bg-success", "text-success-content")
+    }
+  }, [guidesUser.id_Guide, isCheck]);
+  
   return (
     <div className="form-control">
       <label className="cursor-pointer flex items-center">
-        <input type="checkbox" className="checkbox checkbox-accent" />
+        <input onChange={handleClick} checked={isCheck} type="checkbox" className="checkbox checkbox-accent" />
         <label className='label'>Capítulo Completado</label>
       </label>
     </div>

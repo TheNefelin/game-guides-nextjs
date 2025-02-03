@@ -17,7 +17,7 @@ export default function TimelineGuide({ guides }: GuideProps) {
         </div>
 
         <div key={guide.id} className="collapse-content">
-          <TimelineGuideCheck/>
+          <TimelineGuideCheck guidesUser={guide.guideUser} />
           <TimelineAdventure adventures={ guide.adventures }/>
           <BtnUpGuide id_guia_acordion={`G-${guide.id}`}></BtnUpGuide>
         </div>
