@@ -1,4 +1,4 @@
-import { ApiAuthResult, ApiResult, GoogleBody, GuidesUser } from "./models";
+import { AdventuresUser, ApiAuthResult, ApiResult, GoogleBody, GuidesUser } from "./models";
 
 interface RequestOptions extends RequestInit {
   method: string;
@@ -21,7 +21,7 @@ const getRequestOptions: RequestOptions = {
     "ApiKey": apiKey
   },
 };
-const postRequestOptions = (body: GoogleBody | GuidesUser): RequestOptions => {
+const postRequestOptions = (body: GoogleBody | GuidesUser | AdventuresUser): RequestOptions => {
   return {
     method: "POST",
     headers: {
@@ -69,13 +69,17 @@ export async function loginGoogleAsync(body: GoogleBody): Promise<ApiAuthResult>
   return await apiAuthFetch(`${apiUrl}/auth/google`, postRequestOptions(body));
 }
 
+export async function getApiResultAsync(id_user: string | undefined): Promise<ApiResult> {
+  id_user = id_user !== undefined ? id_user : "";
+  return await apiFetch(`${apiUrl}/game-guide/dapper/${id_user}`, getRequestOptions);
+}
+
 export async function postGuideCheck(body: GuidesUser): Promise<ApiResult> {
   return await apiFetch(`https://dragonra.bsite.net/api/game-guide/guide`, postRequestOptions(body));
 }
 
-export async function getApiResultAsync(id_user: string | undefined): Promise<ApiResult> {
-  id_user = id_user !== undefined ? id_user : "";
-  return await apiFetch(`${apiUrl}/game-guide/dapper/${id_user}`, getRequestOptions);
+export async function postAdventureCheck(body: AdventuresUser): Promise<ApiResult> {
+  return await apiFetch(`https://dragonra.bsite.net/api/game-guide/adventure`, postRequestOptions(body));
 }
 
 export function getImgPath(imgUrl: string): string {

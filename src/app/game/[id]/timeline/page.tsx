@@ -19,8 +19,6 @@ export default async function TimelinePage({ params }: CharacterPageProps) {
   const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
   if (!game) return <PageNotFound/>
 
-  console.log(apiResult.data[0].guides[0].guideUser)
-  
   return(
     <TimelineGuide guides={ game.guides }/>
   )

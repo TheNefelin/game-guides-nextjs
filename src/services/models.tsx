@@ -55,7 +55,7 @@ export interface Adventure {
   isImportant: boolean
   sort: number
   adventuresImg: AdventureImg[]
-  adventuresUser: AdventuresUser[]
+  adventureUser: AdventuresUser
 }
 
 export interface AdventuresUser {

@@ -8,15 +8,9 @@ interface TimelineGuideProps {
   guidesUser: GuidesUser
 }
 
-
 export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
   const auth = useSession()
-
-  if (guidesUser.id_Guide === 1) {
-    console.log(guidesUser)
-    console.log(auth.data?.user?.apiData?.id)
-  }
-    
+  const idUser = auth.data?.user?.apiData?.id    
   const [isCheck, setIsCheck] = useState(guidesUser.isCheck)
 
   const handleClick = async () => {
@@ -24,8 +18,11 @@ export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
 
     guidesUser.isCheck = !isCheck;
 
-    const result = await postGuideCheck(guidesUser)
-    console.log(result)
+    if (guidesUser.id_User == idUser){
+      await postGuideCheck(guidesUser)
+      // const result = await postGuideCheck(guidesUser)
+      // console.log(result)
+    }
   }
 
   useEffect(() => {

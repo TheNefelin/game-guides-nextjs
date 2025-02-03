@@ -12,7 +12,7 @@ export default function TimelineAdventure({ adventures }: AdventureProps) {
       <span key={adventure.id}>
         {adventure.isImportant ? 
           // <p>✓ {adventure.description}</p>
-          <TimelineAdventureCheck description={ adventure.description }/>
+          <TimelineAdventureCheck adventuresUser={ adventure.adventureUser} description={ adventure.description }/>
         :
           <p>✓ {adventure.description}</p>
         }
