@@ -69,3 +69,9 @@ export interface AdventureImg {
   imgUrl: string
   sort: number
 }
+
+export interface GoogleBody {
+  email: string,
+  sub: string,
+  jti: string
+}

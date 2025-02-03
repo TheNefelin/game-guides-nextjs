@@ -6,6 +6,8 @@ export default function BtnLogin() {
   const auth = useSession()
   const user = auth.data?.user
 
+  console.log(auth)
+
   const login = async () => {
     await signIn("google", { callbackUrl: "/" })
   }

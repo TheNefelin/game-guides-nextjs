@@ -4,6 +4,8 @@ interface RequestOptions extends RequestInit {
   method: string;
   headers: {
     "Accept": string;
+    "Content-Type": string
+    "ApiKey": string
   };
 }
 
@@ -12,11 +14,14 @@ export default class Singleton {
   private static apiResult: Promise<ApiResult>;
   private static readonly apiGetGames: string = process.env.API_GET_GAMES!;
   private static readonly apiGetImg: string = process.env.API_GET_IMG!;
+  private static readonly apiKey: string = process.env.API_KEY!;
   private static readonly requestOptions: RequestOptions = {
     // cache: 'no-store', // or 'force-cache'
     method: "GET",
     headers: {
-      "Accept": "application/json"
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "ApiKey": this.apiKey
     },
   };
 
@@ -36,7 +41,7 @@ export default class Singleton {
   // Fetching de la API
   private static apiFetch = async (): Promise<ApiResult> => {
     try {
-      const res = await fetch(this.apiGetGames, this.requestOptions);
+      const res = await fetch(`${this.apiGetGames}/game-guide/dapper`, this.requestOptions);
       const data: ApiResult = await res.json();
 
       if (!res.ok) {
