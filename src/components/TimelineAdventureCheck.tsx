@@ -23,8 +23,6 @@ export default function TimelineAdventureCheck(props : AdventureCheckProps) {
 
     if (adventuresUser.id_User == idUser){
       await postAdventureCheck(adventuresUser)
-      // const result = await postAdventureCheck(adventuresUser)
-      // console.log(result)
     }
   }
 

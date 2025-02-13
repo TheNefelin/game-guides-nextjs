@@ -20,8 +20,6 @@ export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
 
     if (guidesUser.id_User == idUser){
       await postGuideCheck(guidesUser)
-      // const result = await postGuideCheck(guidesUser)
-      // console.log(result)
     }
   }
 
