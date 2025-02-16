@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
         pathname: '/api/**',
       },
       {
+        protocol: 'http',
+        hostname: 'dragonra.bsite.net',
+        port: '',
+        pathname: '/api/**',
+      },
+      {
         protocol: 'https',
         hostname: 'localhost:7082',
         port: '',

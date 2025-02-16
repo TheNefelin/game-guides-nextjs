@@ -27,7 +27,7 @@ const postRequestOptions = (body: GoogleBody | GuidesUser | AdventuresUser): Req
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "ApiKey": "Esmerilemelo-777"
+      "ApiKey": apiKey
     },
     body: JSON.stringify(body)
   };  
@@ -66,20 +66,20 @@ const apiAuthFetch = async (apiUri: string, requestOptions: RequestOptions): Pro
 };
 
 export async function loginGoogleAsync(body: GoogleBody): Promise<ApiAuthResult> {
-  return await apiAuthFetch(`${apiUrl}/auth/google`, postRequestOptions(body));
+  return await apiAuthFetch(`${apiUrl}/auth-google`, postRequestOptions(body));
 }
 
 export async function getApiResultAsync(id_user: string | undefined): Promise<ApiResult> {
   id_user = id_user !== undefined ? id_user : "";
-  return await apiFetch(`${apiUrl}/game-guide/dapper/${id_user}`, getRequestOptions);
+  return await apiFetch(`${apiUrl}/${id_user}`, getRequestOptions);
 }
 
 export async function postGuideCheck(body: GuidesUser): Promise<ApiResult> {
-  return await apiFetch(`https://dragonra.bsite.net/api/game-guide/guide`, postRequestOptions(body));
+  return await apiFetch(`${apiUrl}/guide`, postRequestOptions(body));
 }
 
 export async function postAdventureCheck(body: AdventuresUser): Promise<ApiResult> {
-  return await apiFetch(`https://dragonra.bsite.net/api/game-guide/adventure`, postRequestOptions(body));
+  return await apiFetch(`${apiUrl}/adventure`, postRequestOptions(body));
 }
 
 export function getImgPath(imgUrl: string): string {

@@ -83,14 +83,7 @@ export interface ApiAuthResult {
   data: LoggedGoogleToken
 }
 
-export interface ApiAuthResult {
-  isSucces: boolean
-  statusCode: number
-  message: string
-  data: LoggedGoogleToken
-}
-
 export interface LoggedGoogleToken {
-  id: string,
+  idUser: string,
   sqlToken: string
 }

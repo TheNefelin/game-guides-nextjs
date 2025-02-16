@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: {children: React.ReactNode;}) {
   const session = await getServerSession(authOptions)
-  const apiResult = await getApiResultAsync(session?.user?.apiData?.id)
+  const apiResult = await getApiResultAsync(session?.user?.apiData?.idUser)
 
   return (
     <html lang="es">
