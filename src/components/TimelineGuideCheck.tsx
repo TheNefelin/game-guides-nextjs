@@ -10,7 +10,7 @@ interface TimelineGuideProps {
 
 export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
   const auth = useSession()
-  const idUser = auth.data?.user?.apiData?.id    
+  const idUser = auth.data?.user?.apiData?.idUser    
   const [isCheck, setIsCheck] = useState(guidesUser.isCheck)
 
   const handleClick = async () => {

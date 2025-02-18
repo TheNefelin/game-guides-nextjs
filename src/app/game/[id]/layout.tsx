@@ -17,7 +17,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getApiResultAsync(session?.user?.apiData?.id)
+  const apiResult = await getApiResultAsync(session?.user?.apiData?.idUser)
   const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
 
   if (!game) return <PageNotFound/>

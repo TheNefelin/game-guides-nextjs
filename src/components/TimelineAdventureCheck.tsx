@@ -13,16 +13,20 @@ export default function TimelineAdventureCheck(props : AdventureCheckProps) {
   const {description, adventuresUser} = props
 
   const auth = useSession()
-  const idUser = auth.data?.user?.apiData?.id    
+  const idUser = auth.data?.user?.apiData?.idUser
   const [isCheck, setIsCheck] = useState(adventuresUser.isCheck)
 
   const handleClick = async () => {
     setIsCheck(isCheck => !isCheck)
 
     adventuresUser.isCheck = !isCheck;
-
+    
     if (adventuresUser.id_User == idUser){
-      await postAdventureCheck(adventuresUser)
+      try {
+        await postAdventureCheck(adventuresUser);
+      } catch (error) {
+        console.error("Error al hacer el postAdventureCheck:", error);
+      }
     }
   }
 

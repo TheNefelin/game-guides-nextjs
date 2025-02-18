@@ -87,3 +87,10 @@ export interface LoggedGoogleToken {
   idUser: string,
   sqlToken: string
 }
+
+export interface ApiResultTest {
+  isSucces: boolean
+  statusCode: number
+  message: string
+  data: string
+}

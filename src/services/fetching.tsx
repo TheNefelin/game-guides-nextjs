@@ -75,11 +75,39 @@ export async function getApiResultAsync(id_user: string | undefined): Promise<Ap
 }
 
 export async function postGuideCheck(body: GuidesUser): Promise<ApiResult> {
-  return await apiFetch(`${apiUrl}/guide`, postRequestOptions(body));
+  // return await apiFetch(`${apiUrl}/guide`, postRequestOptions(body));
+  const res = await fetch("/api/postGuideCheck", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
+  }
+
+  return res.json();
 }
 
 export async function postAdventureCheck(body: AdventuresUser): Promise<ApiResult> {
-  return await apiFetch(`${apiUrl}/adventure`, postRequestOptions(body));
+  // return await apiFetch(`${apiUrl}/adventure`, postRequestOptions(body));
+  const res = await fetch("/api/postAdventureCheck", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
+  }
+
+  return res.json();
 }
 
 export function getImgPath(imgUrl: string): string {
