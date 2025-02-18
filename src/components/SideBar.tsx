@@ -1,7 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Game } from "@/services/models"
-import { getImgPath } from "@/services/fetching"
 
 interface SideBarProps {
   games: Game[]
@@ -19,7 +18,7 @@ export default async function SideBar({ games }: SideBarProps) {
                 <Image
                   className="shadow-md"
                   rel="preload"
-                  src={getImgPath(game.imgUrl)}
+                  src={`/api/getImage?fileName=${game.imgUrl}`}
                   width={65}
                   height={65}
                   alt={game.name}

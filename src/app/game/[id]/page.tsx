@@ -1,7 +1,7 @@
 import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 import { Background, Game } from "@/services/models"
-import { getGamesAsync, getImgPath } from "@/services/fetching"
+import { getGamesAsync } from "@/services/fetching"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/services/authOptions"
 
@@ -24,12 +24,12 @@ export default async function GamePage({ params }: GamePageProps) {
       <Image
         key={background.id}
         className='m-auto shadow-xl mb-4 p-2'
-        src={await getImgPath(background.imgUrl)}
+        src={`/api/getImage?fileName=${background.imgUrl}`}
         alt='background'
         width={1280}
         height={720}
-        blurDataURL={await getImgPath(background.imgUrl)}
-        placeholder="blur"
+        // blurDataURL={await getImgPath(background.imgUrl)}
+        // placeholder="blur"
       >
       </Image>
     ))

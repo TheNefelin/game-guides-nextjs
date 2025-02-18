@@ -1,12 +1,7 @@
 import { AdventuresUser, ApiResult, Game, GoogleBody, GuidesUser, LoggedGoogleToken } from "./models";
 
 const apiUrl: string = process.env.API_GET_GAMES!;
-const apiGetImg: string = process.env.API_GET_IMG!;
 const apiKey: string = process.env.API_KEY!;
-
-export function getImgPath(imgUrl: string): string {
-  return `${apiGetImg}${imgUrl}`;
-}
 
 export async function loginGoogleAsync(body: GoogleBody): Promise<ApiResult<LoggedGoogleToken>> {
   const res = await fetch(`${apiUrl}/auth-google`, {

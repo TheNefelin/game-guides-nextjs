@@ -1,6 +1,5 @@
 import Image from "next/image"
 import { AdventureImg } from "@/services/models";
-import { getImgPath } from "@/services/fetching";
 
 interface AdventureImgProps {
   adventuresImg: AdventureImg[],
@@ -14,12 +13,12 @@ export default function TimelineAdventureImg({ adventuresImg }: AdventureImgProp
         <Image
           key={adventureImg.id}
           className='shadow-md rounded'
-          src={getImgPath(adventureImg.imgUrl)}
+          src={`/api/getImage?fileName=${adventureImg.imgUrl}`}
           alt="Imagen de Guia"
           width={608}
           height={427}
-          blurDataURL={getImgPath(adventureImg.imgUrl)}
-          placeholder="blur"
+          // blurDataURL={getImgPath(adventureImg.imgUrl)}
+          // placeholder="blur"
           style={{ width: 'auto', height: 'auto' }}
         ></Image>
       ))}

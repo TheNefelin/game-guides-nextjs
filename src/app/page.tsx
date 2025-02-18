@@ -28,17 +28,6 @@ export default async function Home() {
       >
       </Image>
 
-      <Image
-        className="m-auto h-auto"
-        src="/api/getImage?id=car_01.webp"
-        alt="Test"
-        width={100}
-        height={100}
-        priority
-        unoptimized
-      >
-      </Image>
-
     </main>
   );
 }

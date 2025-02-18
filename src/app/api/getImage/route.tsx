@@ -1,26 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const apiUrl = process.env.API_GET_GAMES!;
 const apiKey = process.env.API_KEY!;
 
 export async function GET(req: NextRequest) {
   try {
     // Obtener los parámetros de la URL
     const searchParams = req.nextUrl.searchParams;
-    const id_user = searchParams.get("id");
+    const fileName = searchParams.get("fileName");
 
-    if (!id_user) {
+    if (!fileName) {
       return NextResponse.json(
-        { error: "El ID del usuario es requerido." },
+        { error: "El ID es requerido." },
         { status: 400 } // Bad Request
       );
     }
 
-    const response = await fetch(`https://dragonra.bsite.net/api/img/f1?fileName=${id_user}`, {
+    const response = await fetch(`${apiUrl}/img?fileName=${fileName}`, {
       method: "GET",
       headers: {
         "Accept": "image/webp", // Asegúrate de aceptar el tipo de imagen WebP
         "ApiKey": apiKey,
       },
+      cache: 'default', // 'no-cache'
     });
 
     // Verificar si la respuesta es exitosa
