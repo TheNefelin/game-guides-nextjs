@@ -35,7 +35,9 @@ export default function NavFooter() {
           ></Image>
         </a>
       </nav>
-      <p className="text-center">Copyright © {new Date().getFullYear()} - All right reserved</p>
+      <p className="text-center">
+        © {new Date().getFullYear()} - <a href="https://www.francisco-dev.cl" target="_blank">www.francisco-dev.cl</a>
+      </p>
   </footer>
   )
 }
