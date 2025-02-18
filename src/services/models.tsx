@@ -1,8 +1,8 @@
-export interface ApiResult {
+export interface ApiResult<T> {
   isSucces: boolean
   statusCode: number
   message: string
-  data: Game[]
+  data: T
 }
 
 export interface Game {
@@ -76,21 +76,7 @@ export interface GoogleBody {
   jti: string
 }
 
-export interface ApiAuthResult {
-  isSucces: boolean
-  statusCode: number
-  message: string
-  data: LoggedGoogleToken
-}
-
 export interface LoggedGoogleToken {
   idUser: string,
   sqlToken: string
-}
-
-export interface ApiResultTest {
-  isSucces: boolean
-  statusCode: number
-  message: string
-  data: string
 }

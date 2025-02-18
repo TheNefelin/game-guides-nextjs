@@ -1,10 +1,9 @@
 import Link from "next/link"
 import PageNotFound from "@/components/PageNotFound"
-// import Singleton from "@/services/singleton"
 import { Game } from "@/services/models"
 import { authOptions } from "@/services/authOptions"
 import { getServerSession } from "next-auth"
-import { getApiResultAsync } from "@/services/fetching"
+import { getGamesAsync } from "@/services/fetching"
 
 interface GameLayoutProps {
   params: Promise<{ id: string }>
@@ -17,7 +16,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getApiResultAsync(session?.user?.apiData?.idUser)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
   const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
 
   if (!game) return <PageNotFound/>

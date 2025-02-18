@@ -1,7 +1,7 @@
 import { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { loginGoogleAsync } from "./fetching";
-import { GoogleBody, ApiAuthResult, LoggedGoogleToken } from "./models";
+import { ApiResult, GoogleBody, LoggedGoogleToken } from "./models";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           jti: token.jti as string,
         };
   
-        const apiResult: ApiAuthResult = await loginGoogleAsync(body);
+        const apiResult: ApiResult<LoggedGoogleToken> = await loginGoogleAsync(body);
         // console.log(apiResult)
 
         session.user = {

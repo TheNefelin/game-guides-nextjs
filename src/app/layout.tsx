@@ -8,7 +8,7 @@ import BtnPokemon from "@/components/BtnPokemon";
 import React from "react";
 import NavFooter from "@/components/NavFooter";
 import SessionProviderContext from "@/services/SessionProviderContext";
-import { getApiResultAsync } from "@/services/fetching";
+import { getGamesAsync } from "@/services/fetching";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/services/authOptions";
 
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: {children: React.ReactNode;}) {
   const session = await getServerSession(authOptions)
-  const apiResult = await getApiResultAsync(session?.user?.apiData?.idUser)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
 
   return (
     <html lang="es">

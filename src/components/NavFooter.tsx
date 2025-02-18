@@ -36,7 +36,7 @@ export default function NavFooter() {
         </a>
       </nav>
       <p className="text-center">
-        © {new Date().getFullYear()} - <a href="https://www.francisco-dev.cl" target="_blank">www.francisco-dev.cl</a>
+      (v1.26) - © {new Date().getFullYear()} - <a href="https://www.francisco-dev.cl" target="_blank">www.francisco-dev.cl</a>
       </p>
   </footer>
   )

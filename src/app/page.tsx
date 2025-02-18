@@ -3,7 +3,6 @@ import Image from "next/image";
 export default async function Home() {
   return (
     <main className='card-body p-4 mx-2 my-4 bg-base-200 shadow-lg'>
-      <h1>V 1.25</h1>
       <h1 className="card-title uppercase">bienvenidos !!! &#129409;</h1>
       <p className="indent-4">Esta página nació porque cada vez que juego Chrono Cross y dejo el juego pendiente por mucho tiempo, ya no recuerdo en qué misión voy.</p>
   
@@ -24,6 +23,17 @@ export default async function Home() {
         alt="Vintage Game"
         width={1032}
         height={510}
+        priority
+        unoptimized
+      >
+      </Image>
+
+      <Image
+        className="m-auto h-auto"
+        src="/api/getImage?id=car_01.webp"
+        alt="Test"
+        width={100}
+        height={100}
         priority
         unoptimized
       >
