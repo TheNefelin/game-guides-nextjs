@@ -1,3 +1,6 @@
+import { authOptions } from "@/services/authOptions";
+import { GuideUser, LoggedGoogleToken, NewUserGuide } from "@/services/models";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 const apiUrl = process.env.API_GET_GAMES!;
@@ -5,9 +8,23 @@ const apiKey = process.env.API_KEY!;
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const guideUser: GuideUser = await req.json();
 
-    const response = await fetch(`${apiUrl}/guide`, {
+    const session = await getServerSession(authOptions);
+    const apiData = session?.user?.apiData
+
+    const loggedGoogleToken: LoggedGoogleToken = {
+      user_Id: apiData!.user_Id,
+      sqlToken: apiData!.sqlToken
+    }
+
+    const body: NewUserGuide = {
+      guide_Id: guideUser.guide_Id,
+      isCheck: guideUser.isCheck,
+      userToken: loggedGoogleToken
+    }
+
+    const response = await fetch(`${apiUrl}/user-guide`, {
       method: "POST",
       headers: {
         "Accept": "application/json",

@@ -24,12 +24,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Guias de Juegos",
-  description: "Un sitio en construccion de guias para juegos de PS",
+  description: "Un sitio de guias para juegos de PS",
 };
 
 export default async function RootLayout({ children }: {children: React.ReactNode;}) {
   const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
 
   return (
     <html lang="es">
@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: {children: React.ReactNod
           <NavBar/>  
 
           <section className="flex">
-            {apiResult.isSucces ? 
+            {apiResult.isSuccess ? 
             <>
               <SideBar games={apiResult.data}/>
               {children}

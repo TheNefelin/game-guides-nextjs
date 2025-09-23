@@ -1,37 +1,40 @@
 'use client'
 import { postGuideCheck } from "@/services/fetching"
-import { GuidesUser } from "@/services/models"
+import { GuideUser } from "@/services/models"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 
 interface TimelineGuideProps {
-  guidesUser: GuidesUser
+  guideUser: GuideUser
 }
 
-export default function TimelineGuideCheck({guidesUser}: TimelineGuideProps) {
+export default function TimelineGuideCheck({guideUser}: TimelineGuideProps) {
   const auth = useSession()
-  const idUser = auth.data?.user?.apiData?.idUser    
-  const [isCheck, setIsCheck] = useState(guidesUser.isCheck)
+  const user_id = auth.data?.user?.apiData?.user_Id
+  const [isCheck, setIsCheck] = useState(guideUser.isCheck)
 
   const handleClick = async () => {
     setIsCheck(isCheck => !isCheck)
+    guideUser.isCheck = !isCheck;
 
-    guidesUser.isCheck = !isCheck;
-
-    if (guidesUser.id_User == idUser){
-      await postGuideCheck(guidesUser)
+    if (user_id){
+      try {
+        await postGuideCheck(guideUser);
+      } catch (error) {
+        console.error("Error al hacer el postAdventureCheck:", error);
+      }
     }
   }
 
   useEffect(() => {
-    const el = document.querySelector(`#G-${guidesUser.id_Guide}`)
+    const el = document.querySelector(`#G-${guideUser.guide_Id}`)
 
     if (isCheck) {
       el?.classList.add("bg-success", "text-success-content")
     } else {
       el?.classList.remove("bg-success", "text-success-content")
     }
-  }, [guidesUser.id_Guide, isCheck]);
+  }, [guideUser.guide_Id, isCheck]);
   
   return (
     <div className="form-control">

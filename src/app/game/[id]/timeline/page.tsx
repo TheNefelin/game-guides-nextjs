@@ -15,8 +15,8 @@ export default async function TimelinePage({ params }: CharacterPageProps) {
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
-  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
   if (!game) return <PageNotFound/>
 
   return(

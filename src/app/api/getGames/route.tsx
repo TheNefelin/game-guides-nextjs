@@ -7,9 +7,9 @@ export async function GET(req: NextRequest) {
   try {
     // Obtener los parámetros de la URL
     const searchParams = req.nextUrl.searchParams;
-    const id_user = searchParams.get("id") ?? ""; // Si no hay ID, usar ""
+    const user_id = searchParams.get("id") ?? ""; // Si no hay ID, usar ""
 
-    const response = await fetch(`${apiUrl}/${id_user}`, {
+    const response = await fetch(`${apiUrl}/${user_id}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",

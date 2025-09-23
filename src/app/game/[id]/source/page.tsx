@@ -15,13 +15,13 @@ export default async function SourcePage({ params }: CharacterPageProps) {
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
-  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
 
   return(
     <div className='flex flex-col gap-1 pl-16 py-4 bg-base-200 shadow-md mb-4'>
       {game?.sources.map((source: Source) => (
-        <Link key={source.id} className='link' target="_blank" href={source.url}>{source.name}</Link>
+        <Link key={source.source_Id} className='link' target="_blank" href={source.url}>{source.name}</Link>
       ))}
     </div>
   )

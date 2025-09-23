@@ -29,8 +29,8 @@ export const authOptions: NextAuthOptions = {
       if (session != undefined) {
         const body: GoogleBody = {
           email: token.email as string,
-          sub: token.sub as string,
-          jti: token.jti as string,
+          googleSUB: token.sub as string,
+          googleJTI: token.jti as string,
         };
   
         const apiResult: ApiResult<LoggedGoogleToken> = await loginGoogleAsync(body);

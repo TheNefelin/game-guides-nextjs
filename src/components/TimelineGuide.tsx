@@ -10,16 +10,16 @@ interface GuideProps {
 export default function TimelineGuide({ guides }: GuideProps) {
   return (
     guides.map((guide: Guide, index: number) => (
-      <div key={guide.id} className="collapse collapse-arrow bg-base-200 mb-2 shadow-md">
+      <div key={guide.guide_Id} className="collapse collapse-arrow bg-base-200 mb-2 shadow-md">
       <input type="checkbox" />
-        <div id={`G-${guide.id}`} className={`collapse-title text-lg font-medium`}>
+        <div id={`G-${guide.guide_Id}`} className={`collapse-title text-lg font-medium`}>
           {`${index + 1}.- ${guide.name}`}
         </div>
 
-        <div key={guide.id} className="collapse-content">
-          <TimelineGuideCheck guidesUser={guide.guideUser} />
+        <div key={guide.guide_Id} className="collapse-content">
+          <TimelineGuideCheck guideUser={guide.guideUser}/>
           <TimelineAdventure adventures={ guide.adventures }/>
-          <BtnUpGuide id_guia_acordion={`G-${guide.id}`}></BtnUpGuide>
+          <BtnUpGuide id_guia_acordion={`G-${guide.guide_Id}`}/>
         </div>
       </div>
     ))

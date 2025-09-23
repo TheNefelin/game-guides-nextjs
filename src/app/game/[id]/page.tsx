@@ -1,6 +1,6 @@
 import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
-import { Background, Game } from "@/services/models"
+import { BackgroundImg, Game } from "@/services/models"
 import { getGamesAsync } from "@/services/fetching"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/services/authOptions"
@@ -15,16 +15,16 @@ export default async function GamePage({ params }: GamePageProps) {
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
-  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
   if (!game) return <PageNotFound/>
 
   return(
-    game.backgrounds.map(async(background: Background) => (
+    game.backgroundImgs.map(async(backgroundImg: BackgroundImg) => (
       <Image
-        key={background.id}
+        key={backgroundImg.backgroundImg_Id}
         className='m-auto shadow-xl mb-4 p-2'
-        src={`/api/getImage?fileName=${background.imgUrl}`}
+        src={`/api/getImage?fileName=${backgroundImg.imgUrl}`}
         alt='background'
         width={1280}
         height={720}

@@ -1,3 +1,6 @@
+import { authOptions } from "@/services/authOptions";
+import { AdventureUser, LoggedGoogleToken, NewUserAdventure } from "@/services/models";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 const apiUrl = process.env.API_GET_GAMES!;
@@ -5,9 +8,23 @@ const apiKey = process.env.API_KEY!;
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const adventureUser: AdventureUser = await req.json();
 
-    const response = await fetch(`${apiUrl}/adventure`, {
+    const session = await getServerSession(authOptions);
+    const apiData = session?.user?.apiData
+
+    const loggedGoogleToken: LoggedGoogleToken = {
+      user_Id: apiData!.user_Id,
+      sqlToken: apiData!.sqlToken
+    }
+
+    const body: NewUserAdventure = {
+      adventure_Id: adventureUser.adventure_Id,
+      isCheck: adventureUser.isCheck,
+      userToken: loggedGoogleToken
+    }
+
+    const response = await fetch(`${apiUrl}/user-adventure`, {
       method: "POST",
       headers: {
         "Accept": "application/json",

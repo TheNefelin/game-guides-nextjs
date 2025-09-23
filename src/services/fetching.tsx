@@ -1,4 +1,4 @@
-import { AdventuresUser, ApiResult, Game, GoogleBody, GuidesUser, LoggedGoogleToken } from "./models";
+import { AdventureUser, ApiResult, Game, GoogleBody, GuideUser, LoggedGoogleToken } from "./models";
 
 const apiUrl: string = process.env.API_GET_GAMES!;
 const apiKey: string = process.env.API_KEY!;
@@ -21,8 +21,8 @@ export async function loginGoogleAsync(body: GoogleBody): Promise<ApiResult<Logg
   return res.json();
 }
 
-export async function getGamesAsync(id_user: string = ""): Promise<ApiResult<Game[]>> {
-  const res = await fetch(`${apiUrl}/${id_user}`, {
+export async function getGamesAsync(user_id: string = "00000000-0000-0000-0000-000000000000"): Promise<ApiResult<Game[]>> {
+  const res = await fetch(`${apiUrl}/${user_id}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -38,7 +38,7 @@ export async function getGamesAsync(id_user: string = ""): Promise<ApiResult<Gam
   return res.json();
 }
 
-export async function postGuideCheck(body: GuidesUser): Promise<ApiResult<object>> {
+export async function postGuideCheck(body: GuideUser): Promise<ApiResult<object>> {
   const res = await fetch("/api/postGuideCheck", {
     method: "POST",
     headers: {
@@ -55,7 +55,7 @@ export async function postGuideCheck(body: GuidesUser): Promise<ApiResult<object
   return res.json();
 }
 
-export async function postAdventureCheck(body: AdventuresUser): Promise<ApiResult<object>> {
+export async function postAdventureCheck(body: AdventureUser): Promise<ApiResult<object>> {
   const res = await fetch("/api/postAdventureCheck", {
     method: "POST",
     headers: {

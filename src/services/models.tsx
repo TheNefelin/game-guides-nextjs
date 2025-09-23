@@ -1,82 +1,94 @@
 export interface ApiResult<T> {
-  isSucces: boolean
+  isSuccess: boolean
   statusCode: number
   message: string
   data: T
 }
 
 export interface Game {
-  id: number
+  game_Id: number
   name: string
   description: string
   imgUrl: string
-  isActive: boolean
+  isEnabled: boolean
   characters: Character[]
   sources: Source[]
-  backgrounds: Background[]
+  backgroundImgs: BackgroundImg[]
   guides: Guide[]
 }
 
 export interface Character {
-  id: number
+  character_Id: number
   name: string
   description: string
   imgUrl: string
 }
 
 export interface Source {
-  id: number
+  source_Id: number
   name: string
   url: string
 }
 
-export interface Background {
-  id: number
+export interface BackgroundImg {
+  backgroundImg_Id: number
   imgUrl: string
 }
 
 export interface Guide {
-  id: number
+  guide_Id: number
   name: string
   sort: number
   adventures: Adventure[]
-  guideUser: GuidesUser
+  guideUser: GuideUser
 }
 
-export interface GuidesUser {
-  id_Guide: number
-  id_User: string
+export interface GuideUser {
+  user_id: string
+  guide_Id: number
   isCheck: boolean
+}
+
+export interface NewUserGuide {
+  guide_Id: number
+  isCheck: boolean
+  userToken: LoggedGoogleToken
 }
 
 export interface Adventure {
-  id: number
+  adventure_Id: number
   description: string
   isImportant: boolean
   sort: number
-  adventuresImg: AdventureImg[]
-  adventureUser: AdventuresUser
+  adventureImg: AdventureImg[]
+  adventureUser: AdventureUser
 }
 
-export interface AdventuresUser {
-  id_Adventure: number
-  id_User: string
+export interface AdventureUser {
+  user_Id: string
+  adventure_Id: number
   isCheck: boolean
 }
 
+export interface NewUserAdventure {
+  adventure_Id: number
+  isCheck: boolean
+  userToken: LoggedGoogleToken  
+}
+
 export interface AdventureImg {
-  id: number
+  adventureImg_Id: number
   imgUrl: string
   sort: number
 }
 
 export interface GoogleBody {
   email: string,
-  sub: string,
-  jti: string
+  googleSUB: string,
+  googleJTI: string
 }
 
 export interface LoggedGoogleToken {
-  idUser: string,
+  user_Id: string,
   sqlToken: string
 }

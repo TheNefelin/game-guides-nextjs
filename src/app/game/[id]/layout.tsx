@@ -16,13 +16,13 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   const gameId: number = Number(id)
 
   const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.idUser)
-  const game: Game | undefined = apiResult.data?.find(e => e.id === gameId)
+  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
 
   if (!game) return <PageNotFound/>
 
   return(
-    <article key={game.id} className='w-full px-2 py-4'>
+    <article key={game.game_Id} className='w-full px-2 py-4'>
       <h1 className='card-body card-title bg-base-200 uppercase shadow-md'>{game.name}</h1>
       <div className='my-2 flex flex-wrap gap-2'>
         <Link className='btn btn-sm btn-warning' href={`/game/${id}`}>Juego</Link>

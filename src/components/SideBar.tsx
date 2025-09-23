@@ -10,9 +10,9 @@ export default async function SideBar({ games }: SideBarProps) {
   return (
     <ul id="id_sidebar" className="bg-base-100 h-full min-w-24 max-w-24 p-0 my-4 ml-2 menu menu-xs">
       {games.map((game: Game) => (
-        game.isActive && 
-        <li key={game.id} className="mb-2">
-          <Link href={`/game/${game.id}`}>
+        game.isEnabled && 
+        <li key={game.game_Id} className="mb-2">
+          <Link href={`/game/${game.game_Id}`}>
             <div className="avatar grid place-items-center">
               <div className="rounded-xl">
                 <Image

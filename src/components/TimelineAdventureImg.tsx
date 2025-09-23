@@ -2,16 +2,16 @@ import Image from "next/image"
 import { AdventureImg } from "@/services/models";
 
 interface AdventureImgProps {
-  adventuresImg: AdventureImg[],
+  adventureImgs: AdventureImg[],
 }
 
-export default function TimelineAdventureImg({ adventuresImg }: AdventureImgProps) {
+export default function TimelineAdventureImg({ adventureImgs }: AdventureImgProps) {
   return (
-    adventuresImg.length > 0 &&
+    adventureImgs.length > 0 &&
     <div className='my-4 flex flex-wrap gap-4 justify-center'>
-      {adventuresImg.map((adventureImg: AdventureImg) => (
+      {adventureImgs.map((adventureImg: AdventureImg) => (
         <Image
-          key={adventureImg.id}
+          key={adventureImg.adventureImg_Id}
           className='shadow-md rounded'
           src={`/api/getImage?fileName=${adventureImg.imgUrl}`}
           alt="Imagen de Guia"

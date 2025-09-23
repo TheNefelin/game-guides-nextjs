@@ -1,19 +1,19 @@
 "use client"
 import { postAdventureCheck } from "@/services/fetching"
-import { AdventuresUser } from "@/services/models"
+import { AdventureUser } from "@/services/models"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 
 interface AdventureCheckProps {
   description: string,
-  adventuresUser: AdventuresUser
+  adventuresUser: AdventureUser
 }
 
 export default function TimelineAdventureCheck(props : AdventureCheckProps) {
   const {description, adventuresUser} = props
 
   const auth = useSession()
-  const idUser = auth.data?.user?.apiData?.idUser
+  const user_Id = auth.data?.user?.apiData?.user_Id
   const [isCheck, setIsCheck] = useState(adventuresUser.isCheck)
 
   const handleClick = async () => {
@@ -21,7 +21,7 @@ export default function TimelineAdventureCheck(props : AdventureCheckProps) {
 
     adventuresUser.isCheck = !isCheck;
     
-    if (adventuresUser.id_User == idUser){
+    if (user_Id){
       try {
         await postAdventureCheck(adventuresUser);
       } catch (error) {

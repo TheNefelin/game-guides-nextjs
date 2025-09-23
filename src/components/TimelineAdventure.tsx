@@ -9,7 +9,7 @@ interface AdventureProps {
 export default function TimelineAdventure({ adventures }: AdventureProps) {
   return (
     adventures.map((adventure: Adventure) => (
-      <span key={adventure.id}>
+      <span key={adventure.adventure_Id}>
         {adventure.isImportant ? 
           // <p>✓ {adventure.description}</p>
           <TimelineAdventureCheck adventuresUser={ adventure.adventureUser} description={ adventure.description }/>
@@ -17,7 +17,7 @@ export default function TimelineAdventure({ adventures }: AdventureProps) {
           <p>✓ {adventure.description}</p>
         }
 
-        <TimelineAdventureImg adventuresImg={ adventure.adventuresImg }/>
+        <TimelineAdventureImg adventureImgs={ adventure.adventureImg }/>
       </span>
     ))
   )
