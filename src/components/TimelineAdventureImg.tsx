@@ -15,8 +15,8 @@ export default function TimelineAdventureImg({ adventureImgs }: AdventureImgProp
           className='shadow-md rounded'
           src={`/api/getImage?fileName=${adventureImg.imgUrl}`}
           alt="Imagen de Guia"
-          width={1200}
-          height={842}
+          width={1536}
+          height={1080}
           // blurDataURL={getImgPath(adventureImg.imgUrl)}
           // placeholder="blur"
           style={{ width: 'auto', height: 'auto' }}
