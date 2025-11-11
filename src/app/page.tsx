@@ -4,7 +4,7 @@ export default async function Home() {
   return (
     <main className='card-body p-4 mx-2 my-4 bg-base-200 shadow-lg'>
       <h1 className="card-title uppercase">bienvenidos !!! &#129409;</h1>
-      <p className="indent-4">Esta página nació porque cada vez que juego Chrono Cross y dejo el juego pendiente por mucho tiempo, ya no recuerdo en qué misión voy.</p>
+      <p className="indent-4">Esta página nació después de muchas veces abrir Chrono Cross, ver mi partida guardada… y no tener ni idea de qué estaba haciendo. Así que decidí crear un espacio para registrar mis aventuras y no volver a perder el hilo de la historia (otra vez 😅).</p>
   
       <Image
         className="m-auto h-auto"
