@@ -19,7 +19,7 @@ export default function TimelineAdventureImg({ adventureImgs }: AdventureImgProp
           height={842}
           // blurDataURL={getImgPath(adventureImg.imgUrl)}
           // placeholder="blur"
-          // style={{ width: 'auto', height: 'auto' }}
+          style={{ width: 'auto', height: 'auto' }}
         ></Image>
       ))}
     </div>
