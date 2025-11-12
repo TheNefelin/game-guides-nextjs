@@ -28,8 +28,6 @@ export default async function GamePage({ params }: GamePageProps) {
         alt='background'
         width={1280}
         height={720}
-        // blurDataURL={await getImgPath(background.imgUrl)}
-        // placeholder="blur"
       >
       </Image>
     ))
