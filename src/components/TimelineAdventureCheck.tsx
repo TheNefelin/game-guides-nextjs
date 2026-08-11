@@ -1,8 +1,6 @@
 "use client"
-import { postAdventureCheck } from "@/services/fetching"
+import { useEffect, useState } from "react"
 import { AdventureUser } from "@/services/models"
-import { useSession } from "next-auth/react"
-import { useState } from "react"
 
 interface AdventureCheckProps {
   description: string,
@@ -11,23 +9,18 @@ interface AdventureCheckProps {
 
 export default function TimelineAdventureCheck(props : AdventureCheckProps) {
   const {description, adventuresUser} = props
+  const [isCheck, setIsCheck] = useState(false)
 
-  const auth = useSession()
-  const user_Id = auth.data?.user?.apiData?.user_Id
-  const [isCheck, setIsCheck] = useState(adventuresUser.isCheck)
+  useEffect(() => {
+    setIsCheck(localStorage.getItem(`adventure-check-${adventuresUser.adventure_Id}`) === "true")
+  }, [adventuresUser.adventure_Id])
 
-  const handleClick = async () => {
-    setIsCheck(isCheck => !isCheck)
-
-    adventuresUser.isCheck = !isCheck;
-    
-    if (user_Id){
-      try {
-        await postAdventureCheck(adventuresUser);
-      } catch (error) {
-        console.error("Error al hacer el postAdventureCheck:", error);
-      }
-    }
+  const handleClick = () => {
+    setIsCheck(prev => {
+      const next = !prev
+      localStorage.setItem(`adventure-check-${adventuresUser.adventure_Id}`, String(next))
+      return next
+    })
   }
 
   return (

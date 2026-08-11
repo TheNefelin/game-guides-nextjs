@@ -7,10 +7,7 @@ import BtnUp from "@/components/BtnUp";
 import BtnPokemon from "@/components/BtnPokemon";
 import React from "react";
 import NavFooter from "@/components/NavFooter";
-import SessionProviderContext from "@/services/SessionProviderContext";
 import { getGamesAsync } from "@/services/fetching";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/services/authOptions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,32 +25,29 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: {children: React.ReactNode;}) {
-  const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const apiResult = await getGamesAsync()
 
   return (
     <html lang="es">
       <body id="id_body" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <BtnPokemon/>
 
-        <SessionProviderContext>
-          <NavBar/>  
+        <NavBar/>  
 
-          <section className="flex">
-            {apiResult.isSuccess ? 
-            <>
-              <SideBar games={apiResult.data}/>
-              {children}
-            </>
-            : 
-            <div role="alert" className="alert alert-error m-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Error! { apiResult.statusCode } : { apiResult.message }</span>
-            </div>}
-          </section>
-        </SessionProviderContext>
+        <section className="flex">
+          {apiResult.isSuccess ? 
+          <>
+            <SideBar games={apiResult.data}/>
+            {children}
+          </>
+          : 
+          <div role="alert" className="alert alert-error m-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Error! { apiResult.statusCode } : { apiResult.message }</span>
+          </div>}
+        </section>
 
         <BtnUp/>
         <NavFooter/>

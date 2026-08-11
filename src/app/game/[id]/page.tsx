@@ -2,8 +2,6 @@ import Image from "next/image"
 import PageNotFound from "@/components/PageNotFound"
 import { BackgroundImg, Game } from "@/services/models"
 import { getGamesAsync } from "@/services/fetching"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/services/authOptions"
 
 interface GamePageProps {
   params: Promise<{ id: string }>
@@ -14,8 +12,7 @@ export default async function GamePage({ params }: GamePageProps) {
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const apiResult = await getGamesAsync()
   const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
   if (!game) return <PageNotFound/>
 

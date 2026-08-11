@@ -1,56 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
+import { promises as fs } from "fs";
+import path from "path";
 
-const apiUrl = process.env.API_GET_GAMES!;
-const apiKey = process.env.API_KEY!;
+const imagesDir = path.join(process.cwd(), "public", "images");
+
+const mimeTypes: Record<string, string> = {
+  ".webp": "image/webp",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".gif": "image/gif",
+};
 
 export async function GET(req: NextRequest) {
   try {
-    // Obtener los parámetros de la URL
-    const searchParams = req.nextUrl.searchParams;
-    const fileName = searchParams.get("fileName");
+    const fileName = req.nextUrl.searchParams.get("fileName");
 
     if (!fileName) {
       return NextResponse.json(
-        { error: "El ID es requerido." },
-        { status: 400 } // Bad Request
+        { error: "El nombre del archivo es requerido." },
+        { status: 400 }
       );
     }
 
-    const response = await fetch(`${apiUrl}/img?fileName=${fileName}`, {
-      method: "GET",
-      headers: {
-        "Accept": "image/webp", // Asegúrate de aceptar el tipo de imagen WebP
-        "ApiKey": apiKey,
-      },
-      cache: 'default', // 'no-cache'
-    });
+    const safeName = path.basename(fileName);
+    const filePath = path.join(imagesDir, safeName);
+    const ext = path.extname(safeName).toLowerCase();
+    const contentType = mimeTypes[ext];
 
-    // Verificar si la respuesta es exitosa
-    if (!response.ok) {
-      console.error(`Error en la API: ${response.status} - ${response.statusText}`);
+    if (!contentType) {
       return NextResponse.json(
-        { error: `Error en la API: ${response.statusText}` },
-        { status: response.status }
+        { error: "Tipo de imagen no soportado." },
+        { status: 400 }
       );
     }
 
-    // Obtener el blob de la imagen
-    const blob = await response.blob();
+    const buffer = await fs.readFile(filePath);
 
-    // Crear una respuesta a partir del blob
-    const imageResponse = new Response(blob, {
+    return new NextResponse(buffer, {
       headers: {
-        "Content-Type": "image/webp", // Establecer el tipo de contenido a WebP
+        "Content-Type": contentType,
+        "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
-
-    return imageResponse; // Retornar la respuesta de la imagen
-
-  } catch (error) {
-    console.error("Error en getGames:", error);
+  } catch {
     return NextResponse.json(
-      { error: "Error en el servidor" },
-      { status: 500 }
+      { error: "Imagen no encontrada" },
+      { status: 404 }
     );
   }
 }

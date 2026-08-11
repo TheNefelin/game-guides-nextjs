@@ -1,29 +1,24 @@
 'use client'
-import { postGuideCheck } from "@/services/fetching"
-import { GuideUser } from "@/services/models"
-import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
+import { GuideUser } from "@/services/models"
 
 interface TimelineGuideProps {
   guideUser: GuideUser
 }
 
 export default function TimelineGuideCheck({guideUser}: TimelineGuideProps) {
-  const auth = useSession()
-  const user_id = auth.data?.user?.apiData?.user_Id
-  const [isCheck, setIsCheck] = useState(guideUser.isCheck)
+  const [isCheck, setIsCheck] = useState(false)
 
-  const handleClick = async () => {
-    setIsCheck(isCheck => !isCheck)
-    guideUser.isCheck = !isCheck;
+  useEffect(() => {
+    setIsCheck(localStorage.getItem(`guide-check-${guideUser.guide_Id}`) === "true")
+  }, [guideUser.guide_Id])
 
-    if (user_id){
-      try {
-        await postGuideCheck(guideUser);
-      } catch (error) {
-        console.error("Error al hacer el postAdventureCheck:", error);
-      }
-    }
+  const handleClick = () => {
+    setIsCheck(prev => {
+      const next = !prev
+      localStorage.setItem(`guide-check-${guideUser.guide_Id}`, String(next))
+      return next
+    })
   }
 
   useEffect(() => {

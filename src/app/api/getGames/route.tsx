@@ -1,34 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { getGamesAsync } from "@/services/fetching";
 
-const apiUrl = process.env.API_GET_GAMES!;
-const apiKey = process.env.API_KEY!;
-
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    // Obtener los parámetros de la URL
-    const searchParams = req.nextUrl.searchParams;
-    const user_id = searchParams.get("id") ?? ""; // Si no hay ID, usar ""
+    const apiResult = await getGamesAsync();
 
-    const response = await fetch(`${apiUrl}/${user_id}`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "ApiKey": apiKey,
-      },
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error(`Error en la API: ${response.status} - ${response.statusText}`);
+    if (!apiResult.isSuccess) {
       return NextResponse.json(
-        { error: `Error en la API: ${response.statusText}` },
-        { status: response.status }
+        { error: apiResult.message },
+        { status: apiResult.statusCode }
       );
     }
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true, data: apiResult.data });
   } catch (error) {
     console.error("Error en getGames:", error);
     return NextResponse.json(

@@ -1,8 +1,6 @@
 import Link from "next/link"
 import PageNotFound from "@/components/PageNotFound"
 import { Game } from "@/services/models"
-import { authOptions } from "@/services/authOptions"
-import { getServerSession } from "next-auth"
 import { getGamesAsync } from "@/services/fetching"
 
 interface GameLayoutProps {
@@ -15,8 +13,7 @@ export default async function GameLayout({ params, children }: GameLayoutProps) 
   if (isNaN(Number(id))) return <PageNotFound/>
   const gameId: number = Number(id)
 
-  const session = await getServerSession(authOptions)
-  const apiResult = await getGamesAsync(session?.user?.apiData?.user_Id)
+  const apiResult = await getGamesAsync()
   const game: Game | undefined = apiResult.data?.find(e => e.game_Id === gameId)
 
   if (!game) return <PageNotFound/>
